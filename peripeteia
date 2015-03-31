@@ -6,6 +6,24 @@ def prompt(_prompt = "> ")
 	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
 end
 
+def symbol_for_direction(input)
+	text = case input.downcase
+	when "north", "east", "south", "west", "up", "down"
+		input[0]
+	when /^north ?east$/
+		"ne"
+	when /^north ?west$/
+		"nw"
+	when /^south ?east$/
+		"se"
+	when /^south ?west$/
+		"sw"
+	else
+		input
+	end
+	text.to_sym
+end
+
 require_relative "lib/scene"
 require_relative "lib/scene_manager"
 

@@ -22,7 +22,14 @@ class SceneManager
 
 	def setup_scenes
 		@scenes[:start] ||= Scene.new({ delegate: @delegate,
-				name: "Hetic Circus (this isn't staying here)" })
+			name: "Hetic Circus (this isn't staying here)" })
+		# this scene probaly won't stay
+		@scenes[:backstage] ||= Scene.new({ delegate: @delegate,
+			name: "Backstagftgefgefrgp||||bfgttr" })
+
+
+		@scenes[:start].paths = { e: @scenes[:backstage] }
+		@scenes[:backstage].paths = { w: @scenes[:start] }
 	end
 
 	def [](id)
