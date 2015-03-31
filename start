@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+require "readline"
+
+def prompt(_prompt = "> ")
+	Readline.readline(_prompt, true).squeeze(" ").strip.downcase
+end
+
+require_relative "lib/scene"
+require_relative "lib/scene_manager"
+
+require_relative "lib/player"
+require_relative "lib/controller"
+
+controller = Controller.new
+
+loop do
+	💬 = prompt
+	controller.handle_input(💬)
+end
