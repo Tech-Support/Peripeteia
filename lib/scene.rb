@@ -1,6 +1,6 @@
 class Scene
 
-	attr_accessor :paths
+	attr_accessor :paths, :items
 
 	def initialize(opts)
 		# opts must be a hash that includes the following keys:
@@ -10,7 +10,7 @@ class Scene
 	end
 
 	def marshal_dump
-		{ delegate: @delegate, name: @name, visited: @visited }
+		{ delegate: @delegate, name: @name, visited: @visited, items: @items }
 	end
 
 	def marshal_load(data)
@@ -20,9 +20,11 @@ class Scene
 	def setup(data)
 		# @paths is intentionaly not saved
 		@paths = {}
+
 		@delegate = data[:delegate]
 		@name = data[:name]
 		@visited = data[:visited] || false
+		@items = data[:items] || ObjectManager.new([])
 	end
 
 	def [](direction)

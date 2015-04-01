@@ -27,8 +27,12 @@ class Controller
 		case input
 		when /^((go|walk) )?(?<direction>#{directions})$/
 			walk(symbol_for_direction($~[:direction]))
+
+		# todo: allow look to also be used for items
 		when /^look$/
 			@current_scene.look
+		when /^inspect( (?<thing>[A-Za-z0-9 ]+))?$/
+			_inspect($~[:thing])
 		when /^quit$/
 			# save game
 			exit
@@ -43,6 +47,16 @@ class Controller
 			new_scene.enter
 		else
 			puts "You can't go that way"
+		end
+	end
+
+	def _inspect(thing)
+		if !thing
+			puts "Inspect what?"
+		elsif item = @current_scene.items[thing]
+			item.inspect
+		else # todo: also check in their inventory
+			puts "I don't see that"
 		end
 	end
 

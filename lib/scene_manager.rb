@@ -21,8 +21,17 @@ class SceneManager
 	end
 
 	def setup_scenes
+
+		items = {
+			strawberry: Item.new({ name: "strawberry", description: "ITZ UH STRAWBERRY",
+			alt_names: ["strawberry"] })
+		}
+
 		@scenes[:start] ||= Scene.new({ delegate: @delegate,
-			name: "Hetic Circus (this isn't staying here)" })
+			name: "Hetic Circus (this isn't staying here)",
+			items: ObjectManager.new(
+				[items[:strawberry]]
+			)})
 		# this scene probaly won't stay
 		@scenes[:backstage] ||= Scene.new({ delegate: @delegate,
 			name: "Backstagftgefgefrgp||||bfgttr" })

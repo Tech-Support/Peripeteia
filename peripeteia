@@ -24,9 +24,10 @@ def symbol_for_direction(input)
 	text.to_sym
 end
 
+require_relative "lib/object_manager"
+require_relative "lib/item"
 require_relative "lib/scene"
 require_relative "lib/scene_manager"
-
 require_relative "lib/player"
 require_relative "lib/controller"
 
