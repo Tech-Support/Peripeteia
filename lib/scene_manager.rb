@@ -7,7 +7,7 @@ class SceneManager
 	end
 
 	def marshal_dump
-		{ delegate: @delegate, scenes: @scenes }
+		{ delegate: @delegate, scenes: @scenes, items: @items }
 	end
 
 	def marshal_load(data)
@@ -17,20 +17,23 @@ class SceneManager
 	def setup(data)
 		@delegate = data[:delegate]
 		@scenes = data[:scenes] || {}
+		@items = data[:items] || {}
 		setup_scenes
 	end
 
 	def setup_scenes
 
-		items = {
-			strawberry: Item.new({ name: "strawberry", description: "ITZ UH STRAWBERRY",
-			article: "a", alt_names: ["strawberry"] })
-		}
+		# ITEMS:
+
+		@items[:strawberry] ||= Item.new({ name: "strawberry",
+			description: "ITZ UH STRAWBERRY", article: "a", alt_names: ["strawberry"] })
+
+		# SCENES:
 
 		@scenes[:start] ||= Scene.new({ delegate: @delegate,
 			name: "Hetic Circus (this isn't staying here)",
 			items: ObjectManager.new(
-				[items[:strawberry]]
+				[@items[:strawberry]]
 			)})
 		# this scene probaly won't stay
 		@scenes[:backstage] ||= Scene.new({ delegate: @delegate,
