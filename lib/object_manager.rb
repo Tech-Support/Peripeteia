@@ -38,4 +38,10 @@ class ObjectManager
 		@objects.delete(self[key])
 	end
 
+	def empty
+		@objects.empty?
+	end
+	
+	alias_method :empty?, :empty
+
 end

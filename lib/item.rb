@@ -7,7 +7,7 @@ class Item
 	end
 
 	def marshal_dump
-		{ name: @name, description: @description, alt_names: @alt_names }
+		{ article: @article, name: @name, description: @description, alt_names: @alt_names }
 	end
 
 	def marshal_load(data)
@@ -18,10 +18,15 @@ class Item
 		@name = data[:name]
 		@description = data[:description]
 		@alt_names = data[:alt_names]
+		@article = data[:article] || ""
 	end
 
 	def inspect
 		puts @description
+	end
+
+	def name_with_article
+		"#@article #@name"
 	end
 
 end

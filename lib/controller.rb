@@ -33,6 +33,8 @@ class Controller
 			@current_scene.look
 		when /^inspect( (?<thing>[A-Za-z0-9 ]+))?$/
 			_inspect($~[:thing])
+		when /^inv(entory)?$/
+			@player.look_in_inventory
 		when /^quit$/
 			# save game
 			exit
@@ -55,8 +57,10 @@ class Controller
 			puts "Inspect what?"
 		elsif item = @current_scene.items[thing]
 			item.inspect
-		else # todo: also check in their inventory
-			puts "I don't see that"
+		elsif item = @player.inventory[thing]
+			item.inspect
+		else
+			puts "That isn't here"
 		end
 	end
 

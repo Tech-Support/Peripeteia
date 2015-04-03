@@ -43,6 +43,16 @@ class Scene
 	def look
 		puts @name
 		# puts @description
+		list_items
+	end
+
+	def list_items
+		unless @items.empty?
+			puts "Items here:"
+			@items.each do |item|
+				puts item.name_with_article
+			end
+		end
 	end
 
 end

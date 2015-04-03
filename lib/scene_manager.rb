@@ -24,7 +24,7 @@ class SceneManager
 
 		items = {
 			strawberry: Item.new({ name: "strawberry", description: "ITZ UH STRAWBERRY",
-			alt_names: ["strawberry"] })
+			article: "a", alt_names: ["strawberry"] })
 		}
 
 		@scenes[:start] ||= Scene.new({ delegate: @delegate,
