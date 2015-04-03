@@ -31,7 +31,14 @@ require_relative "lib/scene_manager"
 require_relative "lib/player"
 require_relative "lib/controller"
 
-controller = Controller.new
+SAVE_FILE = File.expand_path("~/.peripeteia_save")
+
+if File.file?(SAVE_FILE)
+	f = File.open(SAVE_FILE, "r")
+	controller = Marshal.load(f.read)
+else
+	controller = Controller.new
+end
 
 loop do
 	💬 = prompt

@@ -35,8 +35,8 @@ class Controller
 			_inspect($~[:thing])
 		when /^inv(entory)?$/
 			@player.look_in_inventory
-		when /^quit$/
-			# save game
+		when /^quit|exit$/
+			save
 			exit
 		end
 
@@ -62,6 +62,13 @@ class Controller
 		else
 			puts "That isn't here"
 		end
+	end
+
+	def save
+		data = Marshal.dump(self)
+		f = File.open(SAVE_FILE, "w")
+		f.write(data)
+		f.close
 	end
 
 end
