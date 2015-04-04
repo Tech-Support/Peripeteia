@@ -25,28 +25,36 @@ class SceneManager < SavableObject
 
 		# ITEMS:
 
-		@items[:strawberry] ||= Item.new({ delegate: @delegate })
-		@items[:strawberry].load_unsaved_data({ name: "strawberry",
-			description: "ITZ UH STRAWBERRY", article: "a"
-		})
-
-		@items[:peach] ||= Item.new({ delegate: @delegate })
-		@items[:peach].load_unsaved_data({ name: "peach",
-			description: "A lonely, delicious peach", article: "a"
+		@items[:coconut] ||= Item.new({ delegate: @delegate })
+		@items[:coconut].load_unsaved_data({ name: "coconut",
+			description: "Hm, this coconut must have fallen of a tree.", article: "a"
 		})
 
 		# SCENES:
 
-		@scenes[:start] ||= Scene.new({ delegate: @delegate,
-			items: ObjectManager.new(
-				[@items[:strawberry]]
-			)
-		})
-		@scenes[:start].load_unsaved_data({ name: "Island shore",
-			description: "You are on the shore of a small, gloomy island."
+		@scenes[:shore] ||= Scene.new({ delegate: @delegate})
+		@scenes[:shore].load_unsaved_data({ name: "Island Shore",
+			description: "You are on the shore of a small, gloomy island.\nThe shore continues east. There is a mysterious jungle north."
 		})
 
-		# @scenes[:start].paths = { e: @scenes[:backstage] }
+		@scenes[:shore_east] ||= Scene.new({ delegate: @delegate })
+		@scenes[:shore_east].load_unsaved_data({ name: "Island Shore",
+			description: "The shore continues west."
+		})
+
+		@scenes[:jungle] ||= Scene.new({ delegate: @delegate,
+			items: ObjectManager.new([
+				@items[:coconut]
+			])
+		})
+		@scenes[:jungle].load_unsaved_data({ name: "Jungle",
+			# make this poetic
+			description: "The tree are very tall here, theres not much\nlight comming through. The beach is south."
+		})
+
+		@scenes[:shore].paths = { n: @scenes[:jungle], e: @scenes[:shore_east] }
+		@scenes[:shore_east].paths = { w: @scenes[:shore] }
+		@scenes[:jungle].paths = { s: @scenes[:shore] }
 	end
 
 	def [](id)
