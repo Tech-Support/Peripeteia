@@ -1,21 +1,13 @@
-class Player
+class Player < SavableObject
 
 	attr_accessor :inventory
 
-	def initialize(opts)
-		setup(opts)
-	end
-
 	def marshal_dump
-		{ delegate: @delegate, name: @name, health: @health, inventory: @inventory }
-	end
-
-	def marshal_load(data)
-		setup(data)
+		super.merge({ name: @name, health: @health, inventory: @inventory })
 	end
 
 	def setup(data)
-		@delegate = data[:delegate]
+		super
 		@name = data[:name] || "Ron"
 		@inventory = data[:inventory] || ObjectManager.new([])
 	end

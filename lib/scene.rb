@@ -1,28 +1,13 @@
-class Scene
+class Scene < GameEntity
 
 	attr_accessor :paths, :items
 
-	def initialize(opts)
-		# opts must be a hash that includes the following keys:
-		# :delegate
-		# :name
-		setup(opts)
-	end
-
 	def marshal_dump
-		{ delegate: @delegate, name: @name, visited: @visited, items: @items }
-	end
-
-	def marshal_load(data)
-		setup(data)
+		super.merge({ visited: @visited, items: @items })
 	end
 
 	def setup(data)
-		# @paths is intentionaly not saved
-		@paths = {}
-
-		@delegate = data[:delegate]
-		@name = data[:name]
+		super
 		@visited = data[:visited] || false
 		@items = data[:items] || ObjectManager.new([])
 	end
@@ -42,7 +27,7 @@ class Scene
 
 	def look
 		puts @name
-		# puts @description
+		puts @description
 		list_items
 	end
 

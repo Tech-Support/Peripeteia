@@ -1,23 +1,7 @@
-class Item
+class Item < GameEntity
 
-	attr_reader :alt_names
-
-	def initialize(opts)
-		setup(opts)
-	end
-
-	def marshal_dump
-		{ article: @article, name: @name, description: @description, alt_names: @alt_names }
-	end
-
-	def marshal_load(data)
-		setup(data)
-	end
-
-	def setup(data)
-		@name = data[:name]
-		@description = data[:description]
-		@alt_names = data[:alt_names]
+	def load_unsaved_data(data)
+		super
 		@article = data[:article] || ""
 	end
 
@@ -26,7 +10,7 @@ class Item
 	end
 
 	def name_with_article
-		"#@article #@name"
+		@article.empty? ? @name : "#@article #@name" 
 	end
 
 end

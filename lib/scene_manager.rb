@@ -1,13 +1,13 @@
-class SceneManager
+class SceneManager < SavableObject
 
 	attr_accessor :scenes
 
 	def initialize(delegate)
-		setup({ delegate: delegate })
+		super({ delegate: delegate })
 	end
 
 	def marshal_dump
-		{ delegate: @delegate, scenes: @scenes, items: @items }
+		super.merge({ scenes: @scenes, items: @items })
 	end
 
 	def marshal_load(data)
@@ -15,7 +15,7 @@ class SceneManager
 	end
 
 	def setup(data)
-		@delegate = data[:delegate]
+		super
 		@scenes = data[:scenes] || {}
 		@items = data[:items] || {}
 		setup_scenes
@@ -25,23 +25,28 @@ class SceneManager
 
 		# ITEMS:
 
-		@items[:strawberry] ||= Item.new({ name: "strawberry",
-			description: "ITZ UH STRAWBERRY", article: "a", alt_names: ["strawberry"] })
+		@items[:strawberry] ||= Item.new({ delegate: @delegate })
+		@items[:strawberry].load_unsaved_data({ name: "strawberry",
+			description: "ITZ UH STRAWBERRY", article: "a"
+		})
+
+		@items[:peach] ||= Item.new({ delegate: @delegate })
+		@items[:peach].load_unsaved_data({ name: "peach",
+			description: "A lonely, delicious peach", article: "a"
+		})
 
 		# SCENES:
 
 		@scenes[:start] ||= Scene.new({ delegate: @delegate,
-			name: "Hetic Circus (this isn't staying here)",
 			items: ObjectManager.new(
 				[@items[:strawberry]]
-			)})
-		# this scene probaly won't stay
-		@scenes[:backstage] ||= Scene.new({ delegate: @delegate,
-			name: "Backstagftgefgefrgp||||bfgttr" })
+			)
+		})
+		@scenes[:start].load_unsaved_data({ name: "Island shore",
+			description: "You are on the shore of a small, gloomy island."
+		})
 
-
-		@scenes[:start].paths = { e: @scenes[:backstage] }
-		@scenes[:backstage].paths = { w: @scenes[:start] }
+		# @scenes[:start].paths = { e: @scenes[:backstage] }
 	end
 
 	def [](id)

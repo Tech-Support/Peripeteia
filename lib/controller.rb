@@ -1,18 +1,11 @@
-class Controller
-
-	def initialize
-		setup({})
-	end
+class Controller < SavableObject
 
 	def marshal_dump
-		{ player: @player, scene_manager: @scene_manager, current_scene: @current_scene }
-	end
-
-	def marshal_load(data)
-		setup(data)
+		super.merge({ player: @player, scene_manager: @scene_manager, current_scene: @current_scene })
 	end
 
 	def setup(data)
+		super
 		@player = data[:player] || Player.new({ delegate: self })
 		@scene_manager = data[:scene_manager] || SceneManager.new(self)
 		@current_scene = data[:current_scene] || @scene_manager[:start]
@@ -38,6 +31,9 @@ class Controller
 		when /^quit|exit$/
 			save
 			exit
+		when /^\s*$/
+		else
+			puts "What?"
 		end
 
 		Readline::HISTORY.pop if Readline::HISTORY.to_a[-1].to_s.match(/^\s*$/)
