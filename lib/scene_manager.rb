@@ -39,12 +39,12 @@ class SceneManager < SavableObject
 
 		@scenes[:main_deck] ||= Scene.new({ delegate: @delegate})
 		@scenes[:main_deck].load_unsaved_data({ name: "Main Deck",
-			description: "Everyone is sprinting around doing various things\nin a effort to keeep the ship afloat. The Captain\nshouts at you, \"Dont just stand there, maggot! Fetch some\nline from the nest to tie off the life lines! GO!\""
+			description: "Everyone is sprinting around doing various things\nin a effort to keeep the ship afloat. The Captain\nshouts at you, \"Dont just stand there, maggot! Fetch some\nline from the nest to tie off the life lines! GO!\"\nThe crows nest is above."
 		})
 
 		@scenes[:crows_nest] ||= Scene.new({ delegate: @delegate})
 		@scenes[:crows_nest].load_unsaved_data({ name: "Crows Nest",
-			description: "You can barely stand as the crows nest swings about\nlike a baloon in the air. As you grip the rail,\nyou can make out an increibly faint shore line.\nYour facination is quickly interupted by a sudden lurch of the ship.\nYou remember why you're there."
+			description: "You can barely stand as the crows nest swings about\nlike a balloon in the air. As you grip the rail,\nyou can make out an increibly faint shore line.\nYour facination is quickly interupted by a sudden lurch of the ship.\nYou remember why you're there."
 		})
 
 
