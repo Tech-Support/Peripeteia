@@ -9,6 +9,8 @@ class Controller < SavableObject
 		@player = data[:player] || Player.new({ delegate: self })
 		@scene_manager = data[:scene_manager] || SceneManager.new(self)
 		@current_scene = data[:current_scene] || @scene_manager[:shore]
+		
+		# @current_scene = @scene_manager[:main_deck]
 
 		@current_scene.enter
 	end

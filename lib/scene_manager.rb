@@ -37,6 +37,10 @@ class SceneManager < SavableObject
 			description: "You wake up from a horrible nightmare.\nThe roar of the creaking boards and the waves crashing\nagainst the side of the hull is deafening. You hear\npeople rushing around on the deck overhead."
 		}) 
 
+		@scenes[:main_deck] ||= Scene.new({ delegate: @delegate})
+		@scenes[:main_deck].load_unsaved_data({ name: "Main Deck",
+			description: "Everyone is sprinting around doing\nvarious things in a effort to keeep the ship afloat.\nThe Captain shouts at you, \"Dont just stand there, maggot!\nFetch some line from the galley to tie off the life lines! GO!\""
+		})
 
 		@scenes[:shore] ||= Scene.new({ delegate: @delegate})
 		@scenes[:shore].load_unsaved_data({ name: "Island Shore",
@@ -45,7 +49,7 @@ class SceneManager < SavableObject
 		})
 
 		@scenes[:shore_east] ||= Scene.new({ delegate: @delegate })
-		@scenes[:shore_east].load_unsaved_data({ name: "Island Shore",
+		@scenes[:shore_east].load_unsaved_data({ name: "Eastern Island Shore",
 			description: "The shore continues to stretch to the west."
 		})
 
