@@ -49,7 +49,7 @@ class SceneManager < SavableObject
 		})
 		@scenes[:jungle].load_unsaved_data({ name: "Jungle",
 			# make this poetic
-			description: "The tree are very tall here, theres not much\nlight comming through. The beach is south."
+			description: "The trees are very tall here, theres not much\nlight coming through. The beach is south."
 		})
 
 		@scenes[:shore].paths = { n: @scenes[:jungle], e: @scenes[:shore_east] }

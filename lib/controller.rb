@@ -28,6 +28,12 @@ class Controller < SavableObject
 			_inspect($~[:thing])
 		when /^inv(entory)?$/
 			@player.look_in_inventory
+		when /^(?<word>get|take|grab)( (?<thing>[A-Za-z0-9 ]+))?$/
+			if thing = $~[:thing]
+				take(thing)
+			else
+				puts "#{$~[:word].capitalize} what?"
+			end
 		when /^quit|exit$/
 			save
 			exit
@@ -44,7 +50,7 @@ class Controller < SavableObject
 			@current_scene = new_scene
 			new_scene.enter
 		else
-			puts "You can't go that way"
+			puts "You can't go that way."
 		end
 	end
 
@@ -57,6 +63,14 @@ class Controller < SavableObject
 			item.inspect
 		else
 			puts "That isn't here"
+		end
+	end
+
+	def take(thing)
+		if item = @current_scene.items[thing]
+			# do stuff
+		else
+			puts "That isn't here."
 		end
 	end
 

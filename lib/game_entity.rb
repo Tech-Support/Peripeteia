@@ -36,7 +36,7 @@ class GameEntity < SavableObject
 		if @alt_names = data[:alt_names]
 			@alt_names << @name
 		else
-			@alt_names = []
+			@alt_names = [@name]
 		end
 	end
 
