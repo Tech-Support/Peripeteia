@@ -32,10 +32,16 @@ class SceneManager < SavableObject
 
 		# SCENES:
 
+		@scenes[:below_deck] ||= Scene.new({ delegate: @delegate})
+		@scenes[:below_deck].load_unsaved_data({ name: "Below Deck",
+			description: "You wake up from a horrible nightmare.\nThe roar of the creaking boards and the waves crashing\nagainst the side of the hull is deafening. You hear\npeople rushing around on the deck overhead."
+		}) 
+
+
 		@scenes[:shore] ||= Scene.new({ delegate: @delegate})
 		@scenes[:shore].load_unsaved_data({ name: "Island Shore",
 			# add some sort of "you wake up" before this
-			description: "You are on the shore of a small, gloomy island.\nThe ocean is eerily calm, causing a thick silence to\ncoat the shore. The beach continues east.\nThere is a large jungle to the north."
+			description: "You are on the shore of a small, gloomy island.\nThe ocean is eerily calm, causing a thick silence\nto coat the shore. The beach continues east.\nThere is a large jungle to the north."
 		})
 
 		@scenes[:shore_east] ||= Scene.new({ delegate: @delegate })
