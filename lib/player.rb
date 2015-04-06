@@ -22,4 +22,8 @@ class Player < SavableObject
 		end
 	end
 
+	def give_item(item)
+		@inventory << item
+	end
+
 end

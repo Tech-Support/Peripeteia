@@ -68,7 +68,8 @@ class Controller < SavableObject
 
 	def take(thing)
 		if item = @current_scene.items[thing]
-			# do stuff
+			@current_scene.remove_item(item)
+			@player.give_item(item)
 		else
 			puts "That isn't here."
 		end
