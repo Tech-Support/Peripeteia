@@ -9,3 +9,4 @@ Todo:
 * Stop overriding inspect
 * Add an info/stats command
 * Have a way to get from the boat to the shore
+* Add ability to choose spawn point

@@ -27,7 +27,7 @@ class SceneManager < SavableObject
 
 		@items[:coconut] ||= Item.new({ delegate: @delegate })
 		@items[:coconut].load_unsaved_data({ name: "coconut",
-			description: "Hm, this coconut must have fallen off a tree.", article: "a"
+			description: "Hm, this coconut must have fallen off a tree.\nOr perhaps a swallow brought it here...", article: "a"
 		})
 
 		# SCENES:
@@ -39,8 +39,14 @@ class SceneManager < SavableObject
 
 		@scenes[:main_deck] ||= Scene.new({ delegate: @delegate})
 		@scenes[:main_deck].load_unsaved_data({ name: "Main Deck",
-			description: "Everyone is sprinting around doing various things\nin a effort to keeep the ship afloat. The Captain\nshouts at you, \"Dont just stand there, maggot! Fetch some\nline from the galley to tie off the life lines! GO!\""
+			description: "Everyone is sprinting around doing various things\nin a effort to keeep the ship afloat. The Captain\nshouts at you, \"Dont just stand there, maggot! Fetch some\nline from the nest to tie off the life lines! GO!\""
 		})
+
+		@scenes[:crows_nest] ||= Scene.new({ delegate: @delegate})
+		@scenes[:crows_nest].load_unsaved_data({ name: "Crows Nest",
+			description: "You can barely stand as the crows nest swings about\nlike a baloon in the air. As you grip the rail,\nyou can make out an increibly faint shore line.\nYour facination is quickly interupted by a sudden lurch of the ship.\nYou remember why you're there."
+		})
+
 
 		@scenes[:shore] ||= Scene.new({ delegate: @delegate})
 		@scenes[:shore].load_unsaved_data({ name: "Island Shore",
@@ -65,8 +71,9 @@ class SceneManager < SavableObject
 
 
 		# boat:
-		@scenes[:main_deck].paths = { d: @scenes[:below_deck] }
+		@scenes[:main_deck].paths = { d: @scenes[:below_deck], u: @scenes[:crows_nest] }
 		@scenes[:below_deck].paths = { u: @scenes[:main_deck] }
+		@scenes[:crows_nest].paths = { d: @scenes[:main_deck] }
 
 		# island:
 		@scenes[:shore].paths = { n: @scenes[:jungle], e: @scenes[:shore_east] }
