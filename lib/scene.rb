@@ -3,13 +3,18 @@ class Scene < GameEntity
 	attr_accessor :paths, :items
 
 	def marshal_dump
-		super.merge({ visited: @visited, items: @items })
+		super.merge({ items: @items })
 	end
 
 	def setup(data)
 		super
-		@visited = data[:visited] || false
+		# @visited = data[:visited] || false
 		@items = data[:items] || ObjectManager.new([])
+	end
+
+	def load_unsaved_data(data)
+		super
+		@visited = false
 	end
 
 	def [](direction)
