@@ -14,6 +14,7 @@ class Scene < GameEntity
 
 	def load_unsaved_data(data)
 		super
+		@paths = {}
 		@visited = false
 	end
 

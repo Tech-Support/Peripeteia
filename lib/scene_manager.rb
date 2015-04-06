@@ -63,6 +63,12 @@ class SceneManager < SavableObject
 			description: "The trees are very tall here, and there's not much\nlight coming through. The beach is to the south."
 		})
 
+
+		# boat:
+		@scenes[:main_deck].paths = { d: @scenes[:below_deck] }
+		@scenes[:below_deck].paths = { u: @scenes[:main_deck] }
+
+		# island:
 		@scenes[:shore].paths = { n: @scenes[:jungle], e: @scenes[:shore_east] }
 		@scenes[:shore_east].paths = { w: @scenes[:shore] }
 		@scenes[:jungle].paths = { s: @scenes[:shore] }
