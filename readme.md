@@ -10,3 +10,5 @@ Todo:
 * Add an info/stats command
 * Have a way to get from the boat to the shore
 * Add ability to choose spawn point
+* Add a "use" and "give" command
+	^impement use of "use" cmmd with rope and lifeline pegs at "west_deck"

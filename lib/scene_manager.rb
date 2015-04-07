@@ -30,23 +30,38 @@ class SceneManager < SavableObject
 			description: "Hm, this coconut must have fallen off a tree.\nOr perhaps a swallow brought it here...", article: "a"
 		})
 
+		@items[:rope] ||= Item.new ({ delegate: @delegate })
+		@items[:rope].load_unsaved_data({ name: "rope",
+			description: "This rope is pretty sturdy. Perfect for life lines.", article: "some"
+		})
+
 		# SCENES:
 
 		@scenes[:below_deck] ||= Scene.new({ delegate: @delegate})
 		@scenes[:below_deck].load_unsaved_data({ name: "Below Deck",
-			description: "You wake up from a horrible nightmare.\nThe roar of the creaking boards and the waves crashing\nagainst the side of the hull is deafening. You hear\npeople rushing around on the deck overhead."
+			# insert something like "you wake up from a horrible nightmare"
+			description: "The roar of the creaking boards and the waves crashing\nagainst the side of the hull is deafening. You hear\npeople rushing around on the deck overhead."
 		}) 
 
 		@scenes[:main_deck] ||= Scene.new({ delegate: @delegate})
 		@scenes[:main_deck].load_unsaved_data({ name: "Main Deck",
-			description: "Everyone is sprinting around doing various things\nin a effort to keeep the ship afloat. The Captain\nshouts at you, \"Dont just stand there, maggot! Fetch some\nline from the nest to tie off the life lines! GO!\"\nThe crows nest is above."
+			description: "Crew members are sprinting around doing various things\nin a effort to keeep the ship afloat. The Captain\nshouts at you, \"Dont just stand there, maggot! Fetch some\nline from the nest to tie off the life lines! GO!\"\nThere are pegs to tie the life lines on the western\nside of the ship. The crows nest is above."
 		})
 
+		@scenes[:west_deck] ||= Scene.new({ delegate: @delegate})
+		@scenes[:west_deck].load_unsaved_data({ name: "Port Side",
+			description: "As you struggle to see through the mist thrown about\nby the massive waves impacting the hull, you can make\nout the pegs for tying the life lines attached to the ships\nrailing. The main deck is back to the east."
+		})
+
+		@scenes[:crows_nest] ||= Scene.new({ delegate: @delegate,
+			items: ObjectManager.new([
+				@items[:rope]
+			])
+		})
 		@scenes[:crows_nest] ||= Scene.new({ delegate: @delegate})
 		@scenes[:crows_nest].load_unsaved_data({ name: "Crows Nest",
 			description: "You can barely stand as the crows nest swings about\nlike a balloon in the air. As you grip the rail,\nyou can make out an increibly faint shore line.\nYour facination is quickly interupted by a sudden lurch of the ship.\nYou remember why you're there."
-		})
-
+		})	
 
 		@scenes[:shore] ||= Scene.new({ delegate: @delegate})
 		@scenes[:shore].load_unsaved_data({ name: "Island Shore",
@@ -56,29 +71,35 @@ class SceneManager < SavableObject
 
 		@scenes[:shore_east] ||= Scene.new({ delegate: @delegate })
 		@scenes[:shore_east].load_unsaved_data({ name: "Eastern Island Shore",
-			description: "The shore continues to stretch to the west."
+			description: "The shore continues to stretch to the north east, but also goes back to the west."
 		})
 
-		@scenes[:jungle] ||= Scene.new({ delegate: @delegate,
+		@scenes[:shore_shack] ||= Scene.new({ delegate: @delegate })
+		@scenes[:shore_shack].load_unsaved_data({ name: "North East Shore",
+			description: "The shore is cut off here by rocks. There is an old and\nrun down shack here, and it has a rusty padlock\nholding the door shut. The beach goes back to the\nsouthwest."
+		})
+
+		@scenes[:jungle_entrance] ||= Scene.new({ delegate: @delegate,
 			items: ObjectManager.new([
 				@items[:coconut]
 			])
 		})
-		@scenes[:jungle].load_unsaved_data({ name: "Jungle",
-			# make this poetic
-			description: "The trees are very tall here, and there's not much\nlight coming through. The beach is to the south."
+		@scenes[:jungle_entrance].load_unsaved_data({ name: "Jungle Entrance",
+			description: "The trees are very tall here, and few of the suns\nrays are able to penetrate the thick canopy of leaves.\nThe beach is back to the south."
 		})
 
 
 		# boat:
-		@scenes[:main_deck].paths = { d: @scenes[:below_deck], u: @scenes[:crows_nest] }
+		@scenes[:main_deck].paths = { d: @scenes[:below_deck], u: @scenes[:crows_nest], w: @scenes[:west_deck] }
 		@scenes[:below_deck].paths = { u: @scenes[:main_deck] }
 		@scenes[:crows_nest].paths = { d: @scenes[:main_deck] }
+		@scenes[:west_deck].paths = { e: @scenes[:main_deck] }
 
 		# island:
-		@scenes[:shore].paths = { n: @scenes[:jungle], e: @scenes[:shore_east] }
-		@scenes[:shore_east].paths = { w: @scenes[:shore] }
-		@scenes[:jungle].paths = { s: @scenes[:shore] }
+		@scenes[:shore].paths = { n: @scenes[:jungle_entrance], e: @scenes[:shore_east] }
+		@scenes[:shore_east].paths = { w: @scenes[:shore], ne: @scenes[:shore_shack] }
+		@scenes[:shore_shack].paths = { sw: @scenes[:shore_east] }
+		@scenes[:jungle_entrance].paths = { s: @scenes[:shore] }
 	end
 
 	def [](id)
