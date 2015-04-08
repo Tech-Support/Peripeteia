@@ -33,6 +33,17 @@ require_relative "lib/player"
 require_relative "lib/controller"
 
 SAVE_FILE = File.expand_path("~/.peripeteia_save")
+$developer_mode = false
+
+until ARGV.empty?
+	case o = ARGV.shift
+	when "-d", "--dev-mode"
+		$developer_mode = true
+	else
+		puts "unrecognized option: #{o}"
+		exit
+	end
+end
 
 if File.file?(SAVE_FILE)
 	f = File.open(SAVE_FILE, "r")

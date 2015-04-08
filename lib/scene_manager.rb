@@ -32,7 +32,7 @@ class SceneManager < SavableObject
 
 		@items[:rope] ||= Item.new ({ delegate: @delegate })
 		@items[:rope].load_unsaved_data({ name: "rope",
-			description: "This rope is pretty sturdy. Perfect for life lines.", article: "some"
+			description: "This rope is pretty sturdy. Perfect for life lines."
 		})
 
 		# SCENES:
