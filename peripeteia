@@ -32,24 +32,34 @@ require_relative "lib/scene_manager"
 require_relative "lib/player"
 require_relative "lib/controller"
 
-SAVE_FILE = File.expand_path("~/.peripeteia_save")
+save_file = File.expand_path("~/.peripeteia_save")
 $developer_mode = false
+should_delete_save_file = false
 
 until ARGV.empty?
 	case o = ARGV.shift
 	when "-d", "--dev-mode"
 		$developer_mode = true
+	when "-l", "--load"
+		save_file = File.expand_path(ARGV.shift)
+	when "-r", "--reset"
+		should_delete_save_file = true
 	else
 		puts "unrecognized option: #{o}"
 		exit
 	end
 end
 
-if File.file?(SAVE_FILE)
-	f = File.open(SAVE_FILE, "r")
+if should_delete_save_file && File.file?(save_file)
+	File.delete(save_file)
+end
+
+if File.file?(save_file)
+	f = File.open(save_file, "r")
 	controller = Marshal.load(f.read)
+	controller.save_file = save_file
 else
-	controller = Controller.new
+	controller = Controller.new(save_file)
 end
 
 loop do

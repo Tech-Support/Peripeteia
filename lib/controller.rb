@@ -1,5 +1,12 @@
 class Controller < SavableObject
 
+	attr_accessor :save_file
+
+	def initialize(save_file, opts = {})
+		@save_file = save_file
+		super(opts)
+	end
+
 	def marshal_dump
 		super.merge({ player: @player, scene_manager: @scene_manager, current_scene: @current_scene })
 	end
@@ -9,8 +16,6 @@ class Controller < SavableObject
 		@player = data[:player] || Player.new({ delegate: self })
 		@scene_manager = data[:scene_manager] || SceneManager.new(self)
 		@current_scene = data[:current_scene] || @scene_manager[:below_deck]
-		
-		@current_scene = @scene_manager[:shore]
 
 		@current_scene.enter
 	end
@@ -96,10 +101,12 @@ class Controller < SavableObject
 	end
 
 	def save
-		data = Marshal.dump(self)
-		f = File.open(SAVE_FILE, "w")
-		f.write(data)
-		f.close
+		if @save_file
+			data = Marshal.dump(self)
+			f = File.open(@save_file, "w")
+			f.write(data)
+			f.close
+		end
 	end
 
 end
