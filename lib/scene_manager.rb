@@ -35,6 +35,11 @@ class SceneManager < SavableObject
 			description: "This rope is pretty sturdy. Perfect for life lines."
 		})
 
+		@items[:rusty_key] ||= Item.new ({ delegate: @delegate })
+		@items[:rusty_key].load_unsaved_data({ name: "rusty key",
+			description: "This key is pretty old, so the lock it belongs\nto is probably in the same condition."
+		})
+
 		# SCENES:
 
 		@scenes[:below_deck] ||= Scene.new({ delegate: @delegate})
@@ -85,9 +90,38 @@ class SceneManager < SavableObject
 			])
 		})
 		@scenes[:jungle_entrance].load_unsaved_data({ name: "Jungle Entrance",
-			description: "The trees are very tall here, and few of the suns\nrays are able to penetrate the thick canopy of leaves.\nThe beach is back to the south."
+			description: "The trees are very tall here, and few of the suns\nrays are able to penetrate the thick canopy of leaves.\nThe beach is back to the south. The jungle continues\nnorth."
 		})
 
+		@scenes[:jungle_main] ||= Scene.new({ delegate: @delegate, })
+		@scenes[:jungle_main].load_unsaved_data({ name: "Central Jungle",
+			description: "The trees continue to grow thicker as you enter the\nheart of the jungle. The Jungle continues to the East,\nNorth, West and Northwest. The beach is back to the\nsouth."
+		})
+
+		@scenes[:jungle_east] ||= Scene.new({ delegate: @delegate, 
+			items: ObjectManager.new([
+				@items[:rusty_key]
+			])	
+		})
+		@scenes[:jungle_east].load_unsaved_data({ name: "Eastern Jungle",
+			description: "The jungle continues to fan out around you, but the\ntrees are too thick for you to go any further. The\njungle center is back to the west."
+		})
+		
+		@scenes[:jungle_north] ||= Scene.new({ delegate: @delegate, })
+		@scenes[:jungle_north].load_unsaved_data({ name: "Northern Jungle",
+			description: "The jungle continues on to the north, and you can see\na concrete structure in the distance. The jungle\ncenter is back to the south."
+		})
+
+		@scenes[:jungle_west] ||= Scene.new({ delegate: @delegate, })
+		@scenes[:jungle_west].load_unsaved_data({ name: "Western Jungle",
+			description: "The jungle is interupted by a small stream running out\nto sea. The jungle center is back to the east."
+		})
+
+		@scenes[:jungle_ne] ||= Scene.new({ delegate: @delegate, })
+		@scenes[:jungle_ne].load_unsaved_data({ name: "Northeast Jungle",
+			# fix description here
+			description: "We should probly insert a legit description here, but\nfor now, the jungle center is back to the sw.\nGo crazy."
+		})
 
 		# boat:
 		@scenes[:main_deck].paths = { d: @scenes[:below_deck], u: @scenes[:crows_nest], w: @scenes[:west_deck] }
@@ -96,10 +130,17 @@ class SceneManager < SavableObject
 		@scenes[:west_deck].paths = { e: @scenes[:main_deck] }
 
 		# island:
+			# shore:
 		@scenes[:shore].paths = { n: @scenes[:jungle_entrance], e: @scenes[:shore_east] }
 		@scenes[:shore_east].paths = { w: @scenes[:shore], ne: @scenes[:shore_shack] }
 		@scenes[:shore_shack].paths = { sw: @scenes[:shore_east] }
-		@scenes[:jungle_entrance].paths = { s: @scenes[:shore] }
+			# jungle:
+		@scenes[:jungle_entrance].paths = { s: @scenes[:shore], n: @scenes[:jungle_main] }
+		@scenes[:jungle_main].paths = { e: @scenes[:jungle_east], n: @scenes[:jungle_north], w: @scenes[:jungle_west], ne: @scenes[:jungle_ne]}
+		@scenes[:jungle_east].paths = { w: @scenes[:jungle_main] }
+		@scenes[:jungle_north].paths = { s: @scenes[:jungle_main] }
+		@scenes[:jungle_west].paths = { e: @scenes[:jungle_main] }
+		@scenes[:jungle_ne].paths = { sw: @scenes[:jungle_main] }
 	end
 
 	def [](id)

@@ -10,7 +10,7 @@ class Controller < SavableObject
 		@scene_manager = data[:scene_manager] || SceneManager.new(self)
 		@current_scene = data[:current_scene] || @scene_manager[:below_deck]
 		
-		# @current_scene = @scene_manager[:below_deck]
+		@current_scene = @scene_manager[:shore]
 
 		@current_scene.enter
 	end
