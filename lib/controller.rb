@@ -41,10 +41,28 @@ class Controller < SavableObject
 			exit
 		when /^\s*$/
 		else
-			puts "What?"
+			if $developer_mode
+				case input
+				when /^teleport( (?<room_name>[A-Za-z0-9_]+))?$/
+					teleport($~[:room_name])
+				else
+					puts "What?"
+				end
+			else
+				puts "What?"
+			end
 		end
 
 		Readline::HISTORY.pop if Readline::HISTORY.to_a[-1].to_s.match(/^\s*$/)
+	end
+
+	def teleport(key)
+		if key != nil && scene = @scene_manager[key.to_sym]
+			@current_scene = scene
+			@current_scene.enter
+		else
+			puts "Error: no room with the key \"#{key}\" "
+		end
 	end
 
 	def walk(direction)
