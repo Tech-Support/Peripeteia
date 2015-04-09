@@ -95,7 +95,7 @@ class SceneManager < SavableObject
 
 		@scenes[:jungle_main] ||= Scene.new({ delegate: @delegate, })
 		@scenes[:jungle_main].load_unsaved_data({ name: "Central Jungle",
-			description: "The trees continue to grow thicker as you enter the\nheart of the jungle. The Jungle continues to the East,\nNorth, West and Northwest. The beach is back to the\nsouth."
+			description: "The trees continue to grow thicker as you enter the\nheart of the jungle. The Jungle continues to the East,\nNorth, West and Northeast. The beach is back to the\nsouth."
 		})
 
 		@scenes[:jungle_east] ||= Scene.new({ delegate: @delegate, 
