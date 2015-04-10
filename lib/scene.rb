@@ -16,6 +16,7 @@ class Scene < GameEntity
 		super
 		@paths = {}
 		@visited = false
+		@key = data[:key]
 	end
 
 	def [](direction)

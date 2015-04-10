@@ -44,7 +44,7 @@ class Controller < SavableObject
 		when /^quit|exit$/
 			save
 			exit
-		when /^tie rope( to pegs)?$/
+		when /^tie rope( to pegs?)?$/
 			if rope = @player.inventory["rope"]
 				rope.tie
 			else

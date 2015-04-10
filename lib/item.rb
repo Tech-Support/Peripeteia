@@ -3,6 +3,7 @@ class Item < GameEntity
 	def load_unsaved_data(data)
 		super
 		@article = data[:article] || ""
+		@key = data[:key]
 	end
 
 	def inspect
