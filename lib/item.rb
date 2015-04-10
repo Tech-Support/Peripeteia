@@ -17,14 +17,13 @@ end
 
 class Rope < Item
 
-	def tie_in_scene(scene)
-		case scene
-		when @delegate.scene_manager[:west_deck]
-			@delegate.player.inventory.objects.delete(self)
-			@delegate.teleport(:shore)
-		else
-			puts "There is nothing to tie a rope to here"
-		end
+	def load_unsaved_data(data)
+		super
+		@block = data[:block]
+	end
+
+	def tie
+		@block.call(self)
 	end
 
 end

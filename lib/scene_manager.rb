@@ -32,7 +32,16 @@ class SceneManager < SavableObject
 
 		@items[:rope] ||= Rope.new ({ delegate: @delegate })
 		@items[:rope].load_unsaved_data({ name: "rope",
-			description: "This rope is pretty sturdy. Perfect for life lines."
+			description: "This rope is pretty sturdy. Perfect for life lines.",
+			block: -> (this) {
+				# `this` is the rope
+				if this.delegate.current_scene == this.delegate.scene_manager[:west_deck]
+					this.delegate.player.inventory.objects.delete(self)
+					this.delegate.teleport(:shore)
+				else
+					puts "There is nothing to tie a rope to here."
+				end
+			}
 		})
 
 		@items[:rusty_key] ||= Item.new ({ delegate: @delegate })

@@ -1,5 +1,7 @@
 class SavableObject
 
+	attr_reader :delegate
+
 	def initialize(opts = {})
 		setup(opts)
 	end
