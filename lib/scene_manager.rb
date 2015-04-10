@@ -1,6 +1,6 @@
 class SceneManager < SavableObject
 
-	attr_accessor :scenes
+	attr_reader :scenes, :items
 
 	def initialize(delegate)
 		super({ delegate: delegate })
@@ -36,7 +36,7 @@ class SceneManager < SavableObject
 			block: -> (this) {
 				# `this` is the rope
 				if this.delegate.current_scene == this.delegate.scene_manager[:west_deck]
-					this.delegate.player.inventory.objects.delete(self)
+					this.delegate.player.inventory.objects.delete(this)
 					this.delegate.teleport(:shore)
 				else
 					puts "There is nothing to tie a rope to here."

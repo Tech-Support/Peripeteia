@@ -56,6 +56,18 @@ class Controller < SavableObject
 				case input
 				when /^teleport( (?<room_name>[A-Za-z0-9_]+))?$/
 					teleport($~[:room_name])
+				when /^receive( (?<item_name>[A-Za-z0-9_]+))?$/
+					if item_name = $~[:item_name]
+						@player.inventory << @scene_manager.items[item_name.to_sym]
+					else
+						puts "Usage: receive [item key]"
+					end
+				when /^>>( (?<code>.+))?$/
+					if code = $~[:code]
+						eval(code)
+					else
+						puts "Usage: >> [Ruby code]"
+					end
 				else
 					puts "What?"
 				end
