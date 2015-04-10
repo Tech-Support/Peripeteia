@@ -37,7 +37,7 @@ class SceneManager < SavableObject
 				# `this` is the rope
 				if this.delegate.current_scene == this.delegate.scene_manager[:west_deck]
 					this.delegate.player.inventory.objects.delete(this)
-					this.delegate.teleport(:shore)
+					this.delegate.teleport(:shore, "Insert message here.")
 				else
 					puts "There is nothing to tie a rope to here."
 				end

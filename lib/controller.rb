@@ -79,9 +79,10 @@ class Controller < SavableObject
 		Readline::HISTORY.pop if Readline::HISTORY.to_a[-1].to_s.match(/^\s*$/)
 	end
 
-	def teleport(key)
+	def teleport(key, message = nil)
 		if key != nil && scene = @scene_manager[key.to_sym]
 			@current_scene = scene
+			puts message if message
 			@current_scene.enter
 		else
 			puts "Error: no room with the key \"#{key}\" "
