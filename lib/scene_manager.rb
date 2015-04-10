@@ -33,8 +33,8 @@ class SceneManager < SavableObject
 			description: "This rope is pretty sturdy. Perfect for life lines.",
 			block: -> (this) {
 				# `this` is the rope
-				if this.delegate.current_scene == this.delegate.scene_manager[:west_deck]
-					this.delegate.player.inventory.objects.delete(this)
+				if this.delegate.current_scene.key == :west_deck
+					this.delegate.player.inventory.delete(this)
 					this.delegate.teleport(:shore, "Insert message here.")
 				else
 					puts "There is nothing to tie a rope to here."

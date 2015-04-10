@@ -1,6 +1,6 @@
 class Scene < GameEntity
 
-	attr_accessor :paths, :items
+	attr_accessor :paths, :items, :key
 
 	def marshal_dump
 		super.merge({ items: @items })

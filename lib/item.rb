@@ -1,6 +1,6 @@
 class Item < GameEntity
 
-	attr_reader :name
+	attr_reader :name, :key
 
 	def load_unsaved_data(data)
 		super
