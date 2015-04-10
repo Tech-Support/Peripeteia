@@ -1,6 +1,6 @@
 class Controller < SavableObject
 
-	attr_accessor :save_file
+	attr_accessor :save_file, :scene_manager, :player
 
 	def initialize(save_file, opts = {})
 		@save_file = save_file
@@ -44,6 +44,12 @@ class Controller < SavableObject
 		when /^quit|exit$/
 			save
 			exit
+		when /^tie rope( to pegs)?$/
+			if rope = @player.inventory["rope"]
+				rope.tie_in_scene(@current_scene)
+			else
+				puts "You have no rope"
+			end
 		when /^\s*$/
 		else
 			if $developer_mode

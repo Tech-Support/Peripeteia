@@ -30,14 +30,15 @@ class SceneManager < SavableObject
 			description: "Hm, this coconut must have fallen off a tree.\nOr perhaps a swallow brought it here...", article: "a"
 		})
 
-		@items[:rope] ||= Item.new ({ delegate: @delegate })
+		@items[:rope] ||= Rope.new ({ delegate: @delegate })
 		@items[:rope].load_unsaved_data({ name: "rope",
 			description: "This rope is pretty sturdy. Perfect for life lines."
 		})
 
 		@items[:rusty_key] ||= Item.new ({ delegate: @delegate })
 		@items[:rusty_key].load_unsaved_data({ name: "rusty key",
-			description: "This key is pretty old, so the lock it belongs\nto is probably in the same condition."
+			description: "This key is pretty old, so the lock it belongs\nto is probably in the same condition.",
+			alt_names: ["key"]
 		})
 
 		# SCENES:
