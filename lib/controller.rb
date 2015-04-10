@@ -58,7 +58,11 @@ class Controller < SavableObject
 					teleport($~[:room_name])
 				when /^receive( (?<item_name>[A-Za-z0-9_]+))?$/
 					if item_name = $~[:item_name]
-						@player.inventory << @scene_manager.items[item_name.to_sym]
+						if item = @scene_manager.items[item_name.to_sym]
+							@player.give_item(item)
+						else
+							puts "That item doesn't exist."
+						end
 					else
 						puts "Usage: receive [item key]"
 					end
@@ -112,7 +116,7 @@ class Controller < SavableObject
 
 	def take(thing)
 		if item = @current_scene.items[thing]
-			@current_scene.remove_item(item)
+			@current_scene.items.delete(item)
 			@player.give_item(item)
 		else
 			puts "That isn't here."

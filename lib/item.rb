@@ -1,5 +1,7 @@
 class Item < GameEntity
 
+	attr_reader :name
+
 	def load_unsaved_data(data)
 		super
 		@article = data[:article] || ""

@@ -35,7 +35,11 @@ class ObjectManager
 	end
 
 	def delete(key)
-		@objects.delete(self[key])
+		if key.is_a?(Symbol)
+			@objects.delete(self[key])
+		else
+			@objects.delete(key)
+		end
 	end
 
 	def empty

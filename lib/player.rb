@@ -24,6 +24,7 @@ class Player < SavableObject
 
 	def give_item(item)
 		@inventory << item
+		puts "You got the #{item.name}!"
 	end
 
 end

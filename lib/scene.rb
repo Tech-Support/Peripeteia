@@ -47,8 +47,4 @@ class Scene < GameEntity
 		end
 	end
 
-	def remove_item(item)
-		@items.objects.delete(item)
-	end
-
 end
