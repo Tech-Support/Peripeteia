@@ -28,19 +28,19 @@ class Scene < GameEntity
 			look
 			@visited = true
 		else
-			puts @name
+			puts @name.cyan
 		end
 	end
 
 	def look
-		puts @name
+		puts @name.cyan
 		puts @description
 		list_items
 	end
 
 	def list_items
 		unless @items.empty?
-			puts "Items here:"
+			puts "Items here:".magenta
 			@items.each do |item|
 				puts item.name_with_article
 			end
