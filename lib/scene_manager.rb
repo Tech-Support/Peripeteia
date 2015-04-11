@@ -88,8 +88,8 @@ class SceneManager < SavableObject
 			description: "The trees are very tall here, and few of the suns\nrays are able to penetrate the thick canopy of leaves.\nThe beach is back to the south. The jungle continues\nnorth."
 		})
 
-		add_scene(:jungle_main, {}, { name: "Central Jungle",
-			description: "The trees continue to grow thicker as you enter the\nheart of the jungle. The Jungle continues to the East,\nNorth, West and Northeast. The beach is back to the\nsouth."
+		add_scene(:north_jungle, {}, { name: "Northern Jungle",
+			description: "The trees continue to grow thicker as you enter the jungle.\nThe Jungle continues to the East, North, West\nand Northeast. The beach is back to the south."
 		})
 
 		add_scene(:jungle_east, { items: ObjectManager.new([
@@ -99,17 +99,18 @@ class SceneManager < SavableObject
 			description: "The jungle continues to fan out around you, but the\ntrees are too thick for you to go any further. The\njungle center is back to the west."
 		})
 
-		add_scene(:jungle_north, {}, { name: "Northern Jungle",
-			description: "The jungle continues on to the north, and you can see\na concrete structure in the distance. The jungle\ncenter is back to the south."
+		add_scene(:jungle_far_north, {}, { name: "Far North Jungle",
+			description: "The jungle continues on to the north, and you can see a concrete\nstructure in the distance. The jungle continues south."
 		})
 
 		add_scene(:jungle_west, {}, { name: "Western Jungle",
-			description: "The jungle is interupted by a small stream running out\nto sea. The jungle center is back to the east."
+			description: "The jungle is interupted by a small stream running out\nto sea. The jungle continues east."
 		})
 
-		add_scene(:jungle_ne, {}, { name: "Northeast Jungle",
-			# fix description here
-			description: "We should probly insert a legit description here, but\nfor now, the jungle center is back to the sw.\nGo crazy."
+		add_scene(:jungle_ne, {}, { name: "Jungle Pond",
+			# you should be able to fish here
+			# I'd love to 
+			description: "Theres a small, clear pond surrended by tall, magnificent\nbanyan trees. There are also a few flowers growing near by.\nYou can go Southwest."
 		})
 
 		# boat:
@@ -124,12 +125,12 @@ class SceneManager < SavableObject
 		@scenes[:shore_east].paths = { w: @scenes[:shore], ne: @scenes[:shore_shack] }
 		@scenes[:shore_shack].paths = { sw: @scenes[:shore_east] }
 			# jungle:
-		@scenes[:jungle_entrance].paths = { s: @scenes[:shore], n: @scenes[:jungle_main] }
-		@scenes[:jungle_main].paths = { e: @scenes[:jungle_east], n: @scenes[:jungle_north], w: @scenes[:jungle_west], ne: @scenes[:jungle_ne]}
-		@scenes[:jungle_east].paths = { w: @scenes[:jungle_main] }
-		@scenes[:jungle_north].paths = { s: @scenes[:jungle_main] }
-		@scenes[:jungle_west].paths = { e: @scenes[:jungle_main] }
-		@scenes[:jungle_ne].paths = { sw: @scenes[:jungle_main] }
+		@scenes[:jungle_entrance].paths = { s: @scenes[:shore], n: @scenes[:north_jungle] }
+		@scenes[:north_jungle].paths = { e: @scenes[:jungle_east], n: @scenes[:jungle_far_north], w: @scenes[:jungle_west], ne: @scenes[:jungle_ne], s: @scenes[:jungle_entrance]}
+		@scenes[:jungle_east].paths = { w: @scenes[:north_jungle] }
+		@scenes[:jungle_far_north].paths = { s: @scenes[:north_jungle] }
+		@scenes[:jungle_west].paths = { e: @scenes[:north_jungle] }
+		@scenes[:jungle_ne].paths = { sw: @scenes[:north_jungle] }
 	end
 
 	def add_scene(key, saved_data, unsaved_data, klass = Scene)
