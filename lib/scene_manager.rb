@@ -74,38 +74,36 @@ class SceneManager < SavableObject
 		})
 
 		add_scene(:shore_east, {}, { name: "Eastern Island Shore",
-			description: "The shore continues to stretch to the north east, but also goes back to the west."
+			description: "The shore continues to stretch northeast,\nbut it also goes back to the west."
 		})
 
 		add_scene(:shore_shack, {}, { name: "North East Shore",
-			description: "The shore is cut off here by rocks. There is an old and\nrun down shack here, and it has a rusty padlock\nholding the door shut. The beach goes back to the\nsouthwest."
+			description: "The shore is cut off here by rocks. There is an old and\nrun down shack here, and it has a rusty padlock\nholding the door shut. The beach goes back southwest."
 		})
 
 		add_scene(:jungle_entrance, { items: ObjectManager.new([
 				@items[:coconut]
 			])
 		}, { name: "Jungle Entrance",
-			description: "The trees are very tall here, and few of the suns\nrays are able to penetrate the thick canopy of leaves.\nThe beach is back to the south. The jungle continues\nnorth."
+			description: "The trees are very tall here, and few of the suns rays\nare able to penetrate the thick canopy of leaves.\nThe beach is back to the south. The jungle continues north."
 		})
 
 		add_scene(:north_jungle, {}, { name: "Northern Jungle",
-			description: "The trees continue to grow thicker as you enter the jungle.\nThe Jungle continues to the East, North, West\nand Northeast. The beach is back to the south."
+			description: "The trees continue to grow thicker as you enter the jungle.\nThe jungle continues to the North, Northeast, East, and West.\nThe beach is back to the south."
 		})
 
 		add_scene(:jungle_east, { items: ObjectManager.new([
 				@items[:rusty_key]
 			])
 		}, { name: "Eastern Jungle",
-			description: "The jungle continues to fan out around you, but the\ntrees are too thick for you to go any further. The\njungle center is back to the west."
+			description: "The jungle continues to fan out around you, but the\ntrees are too thick for you to go any further. The\njungle center is back west."
 		})
 
 		add_scene(:jungle_far_north, {}, { name: "Far North Jungle",
-			description: "The jungle continues on to the north, and you can see a concrete\nstructure in the distance. The jungle continues south."
+			description: "The jungle continues on to the North, and you can see a concrete\nstructure in the distance. The jungle continues south."
 		})
 
 		add_scene(:jungle_west, {}, { name: "Western Jungle",
-			# description: "The jungle is interupted by a small stream running out\nto sea. The jungle continues east."
-			
 			# eh?
 			# also, should there be a comma here?           ↓
 			# todo: add a path to the west
@@ -114,7 +112,7 @@ class SceneManager < SavableObject
 
 		add_scene(:jungle_ne, {}, { name: "Jungle Pond",
 			# you should be able to fish here
-			description: "There is a small, clear pond surrended by tall, magnificent\nbanyan trees. There are also a few flowers growing near by.\nYou can go Southwest."
+			description: "There is a small, clear pond surrended by tall, magnificent\nbanyan trees. There are also a few flowers growing near by.\nYou can go southwest."
 		})
 
 		# boat:
