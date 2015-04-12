@@ -44,6 +44,9 @@ class Controller < SavableObject
 		when /^quit|exit$/
 			save
 			exit
+		when /^i(nfo)?$/
+			@player.print_info
+			print_info
 		when /^tie rope( to pegs?)?$/
 			if rope = @player.inventory["rope"]
 				rope.tie
@@ -81,6 +84,13 @@ class Controller < SavableObject
 		end
 
 		Readline::HISTORY.pop if Readline::HISTORY.to_a[-1].to_s.match(/^\s*$/)
+	end
+
+	def print_info
+		if $developer_mode
+			puts "Developer Mode:".magenta
+			puts "Save File: #@save_file"
+		end
 	end
 
 	def teleport(key, message = nil)

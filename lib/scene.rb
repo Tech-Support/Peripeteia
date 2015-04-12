@@ -28,12 +28,12 @@ class Scene < GameEntity
 			look
 			@visited = true
 		else
-			puts @name.cyan
+			puts @name.cyan + "#{' :' + @key.to_s if $developer_mode}"
 		end
 	end
 
 	def look
-		puts @name.cyan
+		puts @name.cyan + "#{' :' + @key.to_s if $developer_mode}"
 		puts @description
 		list_items
 	end

@@ -3,13 +3,15 @@ class Player < SavableObject
 	attr_accessor :inventory
 
 	def marshal_dump
-		super.merge({ name: @name, health: @health, inventory: @inventory })
+		super.merge({ name: @name, health: @health, max_health: @max_health, inventory: @inventory })
 	end
 
 	def setup(data)
 		super
 		@name = data[:name] || "Ron"
 		@inventory = data[:inventory] || ObjectManager.new([])
+		@max_health = data[:max_health] || 20
+		@health = data[:health] || @max_health
 	end
 
 	def look_in_inventory
@@ -25,6 +27,10 @@ class Player < SavableObject
 	def give_item(item)
 		@inventory << item
 		puts "You got the #{item.name}!"
+	end
+
+	def print_info
+		puts "Health: #@health/#@max_health"
 	end
 
 end
