@@ -104,13 +104,17 @@ class SceneManager < SavableObject
 		})
 
 		add_scene(:jungle_west, {}, { name: "Western Jungle",
-			description: "The jungle is interupted by a small stream running out\nto sea. The jungle continues east."
+			# description: "The jungle is interupted by a small stream running out\nto sea. The jungle continues east."
+			
+			# eh?
+			# also, should there be a comma here?           ↓
+			# todo: add a path to the west
+			description: "The forest is getting denser and darker; it is getting\nhard to see things, but you can see a small path out west."
 		})
 
 		add_scene(:jungle_ne, {}, { name: "Jungle Pond",
 			# you should be able to fish here
-			# I'd love to 
-			description: "Theres a small, clear pond surrended by tall, magnificent\nbanyan trees. There are also a few flowers growing near by.\nYou can go Southwest."
+			description: "There is a small, clear pond surrended by tall, magnificent\nbanyan trees. There are also a few flowers growing near by.\nYou can go Southwest."
 		})
 
 		# boat:
