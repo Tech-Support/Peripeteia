@@ -123,6 +123,16 @@ class SceneManager < SavableObject
 			description: "Strange... It sounds like there's music coming from somewhere.\nThe path goes on northwest and southeast."
 		})
 
+		add_scene(:almost_village, {}, { name: "Jungle Path",
+			description: "There is a joyful village over west with loud music\ncoming from it. The path returns southeast."
+		})
+
+		add_scene(:village, {}, { name: "Village Center",
+			# add more here
+			# make this a haiku, idk maybe not
+			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is\na path leading into the forest to the east."
+		})
+
 		# boat:
 		@scenes[:main_deck].paths = { d: @scenes[:below_deck], u: @scenes[:crows_nest], w: @scenes[:west_deck] }
 		@scenes[:below_deck].paths = { u: @scenes[:main_deck] }
@@ -142,7 +152,10 @@ class SceneManager < SavableObject
 		@scenes[:jungle_far_north].paths = { s: @scenes[:north_jungle] }
 		@scenes[:jungle_west].paths = { e: @scenes[:north_jungle], w: @scenes[:jungle_path] }
 		@scenes[:jungle_path].paths = { e: @scenes[:jungle_west], nw: @scenes[:jungle_path_west] }
-		@scenes[:jungle_path_west].paths = { se: @scenes[:jungle_path] }
+		@scenes[:jungle_path_west].paths = { se: @scenes[:jungle_path], nw: @scenes[:almost_village] }
+		@scenes[:almost_village].paths = { w: @scenes[:village], se: @scenes[:jungle_path_west] }
+				# village:
+		@scenes[:village].paths = { e: @scenes[:almost_village] }
 	end
 
 	def add_scene(key, saved_data, unsaved_data, klass = Scene)
