@@ -89,7 +89,12 @@ class SceneManager < SavableObject
 		})
 
 		add_scene(:north_jungle, {}, { name: "Northern Jungle",
-			description: "The trees continue to grow thicker as you enter the jungle.\nThe jungle continues to the North, Northeast, East, and West.\nThe beach is back to the south."
+			description: "The trees continue to grow thicker as you enter the jungle.\nThe jungle continues north, northeast, east, and west.\nThe beach is back south."
+		})
+
+		add_scene(:jungle_ne, {}, { name: "Jungle Pond",
+			# you should be able to fish here
+			description: "There is a small, clear pond surrended by tall, magnificent\nbanyan trees. There are also a few flowers growing near by.\nYou can go southwest."
 		})
 
 		add_scene(:jungle_east, { items: ObjectManager.new([
@@ -100,19 +105,22 @@ class SceneManager < SavableObject
 		})
 
 		add_scene(:jungle_far_north, {}, { name: "Far North Jungle",
-			description: "The jungle continues on to the North, and you can see a concrete\nstructure in the distance. The jungle continues south."
+			description: "The jungle continues on north, and you can see a concrete\nstructure in the distance. The jungle continues south."
 		})
 
 		add_scene(:jungle_west, {}, { name: "Western Jungle",
 			# eh?
 			# also, should there be a comma here?           ↓
 			# todo: add a path to the west
-			description: "The forest is getting denser and darker; it is getting\nhard to see things, but you can see a small path out west."
+			description: "The forest is getting denser and darker; it is getting\nharder to see things, but you notice a small path going west."
 		})
 
-		add_scene(:jungle_ne, {}, { name: "Jungle Pond",
-			# you should be able to fish here
-			description: "There is a small, clear pond surrended by tall, magnificent\nbanyan trees. There are also a few flowers growing near by.\nYou can go southwest."
+		add_scene(:jungle_path, {}, { name: "Jungle Path",
+			description: "You are on a pathway made from cleared branches and plants.\nThe path continues northwest, and it ends to the east."
+		})
+
+		add_scene(:jungle_path_west, {}, { name: "Jungle Path",
+			description: "Strange... It sounds like there's music coming from somewhere.\nThe path goes on northwest and southeast."
 		})
 
 		# boat:
@@ -129,10 +137,12 @@ class SceneManager < SavableObject
 			# jungle:
 		@scenes[:jungle_entrance].paths = { s: @scenes[:shore], n: @scenes[:north_jungle] }
 		@scenes[:north_jungle].paths = { e: @scenes[:jungle_east], n: @scenes[:jungle_far_north], w: @scenes[:jungle_west], ne: @scenes[:jungle_ne], s: @scenes[:jungle_entrance]}
+		@scenes[:jungle_ne].paths = { sw: @scenes[:north_jungle] }
 		@scenes[:jungle_east].paths = { w: @scenes[:north_jungle] }
 		@scenes[:jungle_far_north].paths = { s: @scenes[:north_jungle] }
-		@scenes[:jungle_west].paths = { e: @scenes[:north_jungle] }
-		@scenes[:jungle_ne].paths = { sw: @scenes[:north_jungle] }
+		@scenes[:jungle_west].paths = { e: @scenes[:north_jungle], w: @scenes[:jungle_path] }
+		@scenes[:jungle_path].paths = { e: @scenes[:jungle_west], nw: @scenes[:jungle_path_west] }
+		@scenes[:jungle_path_west].paths = { se: @scenes[:jungle_path] }
 	end
 
 	def add_scene(key, saved_data, unsaved_data, klass = Scene)
