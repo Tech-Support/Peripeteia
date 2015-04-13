@@ -47,6 +47,8 @@ class Controller < SavableObject
 		when /^i(nfo)?$/
 			@player.print_info
 			print_info
+		when /^\?|help$/
+			print_help
 		when /^tie rope( to pegs?)?$/
 			if rope = @player.inventory["rope"]
 				rope.tie
@@ -140,6 +142,20 @@ class Controller < SavableObject
 			f.write(data)
 			f.close
 		end
+	end
+
+	def print_help
+		puts "Welcome to Peripéteia!"
+		puts
+		puts "You will have to figure out many of the commands your self,"
+		puts "but here are some to help you out:"
+		puts "north, east, south, west, northeast, southeast... and so on."
+		puts "You can also abbreviate them as n, e, w, s, ne, se..."
+		puts
+		puts "Also the info command is very helpful, it lets you see your"
+		puts "health among other usefull things."
+		puts
+		puts "Good luck!"
 	end
 
 end
