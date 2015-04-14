@@ -46,6 +46,11 @@ class SceneManager < SavableObject
 			description: "This key is pretty old, so the lock it belongs\nto is probably in the same condition."
 		})
 
+		add_item(:wooden_sword, {}, { name: "wooden sword", alt_names: ["sword"],
+			description: "A cheap wooden sword, but it gets the job done!",
+			cost: 10
+		})
+
 		# SCENES:
 
 		add_scene(:below_deck, {}, { name: "Below Deck",
@@ -132,6 +137,15 @@ class SceneManager < SavableObject
 			# make this a haiku, idk maybe not
 			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is\na path leading into the forest to the east."
 		})
+
+		# this'll be in the village, for now use teleport to get to it. Or add it in idc
+		add_scene(:blacksmith, {
+			inventory: ObjectManager.new([
+				@items[:wooden_sword]
+			])
+		}, { name: "Blacksmith",
+			description: "Wow, there are some excellent weapons and tools here."
+		}, Shop)
 
 		# boat:
 		@scenes[:main_deck].paths = { d: @scenes[:below_deck], u: @scenes[:crows_nest], w: @scenes[:west_deck] }

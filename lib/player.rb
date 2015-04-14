@@ -1,6 +1,6 @@
 class Player < SavableObject
 
-	attr_accessor :inventory
+	attr_accessor :inventory, :money
 
 	def marshal_dump
 		super.merge({ name: @name, health: @health, max_health: @max_health, inventory: @inventory })
@@ -12,6 +12,7 @@ class Player < SavableObject
 		@inventory = data[:inventory] || ObjectManager.new([])
 		@max_health = data[:max_health] || 20
 		@health = data[:health] || @max_health
+		@money = data[:data] || 30
 	end
 
 	def look_in_inventory
@@ -31,6 +32,7 @@ class Player < SavableObject
 
 	def print_info
 		puts "Health: #@health/#@max_health"
+		puts "Money: $#@money"
 	end
 
 end

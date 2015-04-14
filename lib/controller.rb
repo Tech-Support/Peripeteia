@@ -49,6 +49,13 @@ class Controller < SavableObject
 			print_info
 		when /^\?|help$/
 			print_help
+		when /^(buy|purchase)( (?<item_name>[A-Za-z0-9_]+))?$/
+			item_name = $~[:item_name]
+			if @current_scene.is_a?(Shop)
+				@current_scene.buy(item_name)
+			else
+				puts "You can't buy things here."
+			end
 		when /^tie rope( to pegs?)?$/
 			if rope = @player.inventory["rope"]
 				rope.tie

@@ -1,11 +1,12 @@
 class Item < GameEntity
 
-	attr_reader :name, :key
+	attr_reader :name, :key, :cost
 
 	def load_unsaved_data(data)
 		super
 		@article = data[:article] || ""
 		@key = data[:key]
+		@cost = data[:cost] || nil # the cost can be used to buy or sell
 	end
 
 	def inspect

@@ -28,14 +28,18 @@ class Scene < GameEntity
 			look
 			@visited = true
 		else
-			puts @name.cyan + "#{' :' + @key.to_s if $developer_mode}"
+			print_name
 		end
 	end
 
 	def look
-		puts @name.cyan + "#{' :' + @key.to_s if $developer_mode}"
+		print_name
 		puts @description
 		list_items
+	end
+
+	def print_name
+		puts @name.cyan + "#{' :' + @key.to_s if $developer_mode}"
 	end
 
 	def list_items
@@ -43,6 +47,45 @@ class Scene < GameEntity
 			puts "Items here:".magenta
 			@items.each do |item|
 				puts item.name_with_article
+			end
+		end
+	end
+
+end
+
+class Shop < Scene
+
+	def marshal_dump
+		super.merge({ inventory: @inventory })
+	end
+
+	def setup(data)
+		super
+		@inventory = data[:inventory] || ObjectManager.new([])
+	end
+
+	def buy(item_name)
+		if item = @inventory[item_name]
+			if @delegate.player.money - item.cost >= 0
+				@delegate.player.give_item(item)
+				@inventory.delete(item)
+				@delegate.player.money -= item.cost
+			end
+		else
+			puts "That item isn't here."
+		end
+	end
+
+	def look
+		super
+		print_inventory
+	end
+
+	def print_inventory
+		unless @inventory.empty?
+			puts "Items avalible to buy:".magenta
+			@inventory.each do |item|
+				puts "#{item.name_with_article} - $#{item.cost}"
 			end
 		end
 	end
