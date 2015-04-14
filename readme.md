@@ -8,3 +8,4 @@ Todo:
 * Stop overriding inspect
 * change the message when teleporting to the shore after tying the rope
 * add a weapon and food class
+* add people

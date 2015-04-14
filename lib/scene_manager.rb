@@ -135,10 +135,9 @@ class SceneManager < SavableObject
 		add_scene(:village, {}, { name: "Village Center",
 			# add more here
 			# make this a haiku, idk maybe not
-			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is\na path leading into the forest to the east."
+			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is a\nblacksmith to the northeast, a small hut to the west,\nand a path leading into the forest to the east."
 		})
 
-		# this'll be in the village, for now use teleport to get to it. Or add it in idc
 		add_scene(:blacksmith, {
 			inventory: ObjectManager.new([
 				@items[:wooden_sword]
@@ -146,6 +145,11 @@ class SceneManager < SavableObject
 		}, { name: "Blacksmith",
 			description: "Wow, there are some excellent weapons and tools here."
 		}, Shop)
+
+		add_scene(:small_hut, {}, { name: "Small Hut",
+			# add a person here that says to get out
+			description: "What a cozy home, it's nice in here. The exit is east."
+		})
 
 		# boat:
 		@scenes[:main_deck].paths = { d: @scenes[:below_deck], u: @scenes[:crows_nest], w: @scenes[:west_deck] }
@@ -169,7 +173,9 @@ class SceneManager < SavableObject
 		@scenes[:jungle_path_west].paths = { se: @scenes[:jungle_path], nw: @scenes[:almost_village] }
 		@scenes[:almost_village].paths = { w: @scenes[:village], se: @scenes[:jungle_path_west] }
 				# village:
-		@scenes[:village].paths = { e: @scenes[:almost_village] }
+		@scenes[:village].paths = { e: @scenes[:almost_village], ne: @scenes[:blacksmith], w: @scenes[:small_hut] }
+		@scenes[:small_hut].paths = { e: @scenes[:village] }
+		@scenes[:blacksmith].paths = { sw: @scenes[:village] }
 	end
 
 	def add_scene(key, saved_data, unsaved_data, klass = Scene)
