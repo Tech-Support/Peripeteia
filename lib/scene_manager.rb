@@ -25,8 +25,8 @@ class SceneManager < SavableObject
 
 		# ITEMS:
 
-		add_item(:coconut, {}, { name: "coconut",
-			description: "Hm, this coconut must have fallen off a tree.\nOr perhaps a swallow brought it here...", article: "a"
+		add_item(:coconut, {}, { name: "coconut", article: "a",
+			description: "Hm, this coconut must have fallen off a tree.\nOr perhaps a swallow brought it here..."
 		})
 
 		add_item(:rope, {}, { name: "rope",
@@ -42,11 +42,11 @@ class SceneManager < SavableObject
 			}
 		}, Rope)
 
-		add_item(:rusty_key, {}, { name: "rusty key", alt_names: ["key"],
+		add_item(:rusty_key, {}, { name: "rusty key", alt_names: ["key"], article: "a",
 			description: "This key is pretty old, so the lock it belongs\nto is probably in the same condition."
 		})
 
-		add_item(:wooden_sword, {}, { name: "wooden sword", alt_names: ["sword"],
+		add_item(:wooden_sword, {}, { name: "wooden sword", alt_names: ["sword"], article: "a",
 			description: "A cheap wooden sword, but it gets the job done!",
 			cost: 10
 		})
