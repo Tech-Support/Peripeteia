@@ -53,8 +53,12 @@ class Scene < GameEntity
 		end
 	end
 
+	def living_people
+		happnin_cats = @people.select { |person| person.alive? }
+		ObjectManager.new(happnin_cats)
+	end
+
 	def list_people
-		living_people = @people.select { |person| person.alive? }
 		unless living_people.empty?
 			puts "People here".magenta
 			living_people.each do |person|

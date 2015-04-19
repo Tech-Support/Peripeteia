@@ -142,7 +142,7 @@ class Controller < SavableObject
 			item.inspect
 		elsif item = @player.inventory[thing]
 			item.inspect
-		elsif person = @current_scene.people[thing]
+		elsif person = @current_scene.living_people[thing]
 			person.inspect
 		else
 			puts "That isn't here"
@@ -150,7 +150,7 @@ class Controller < SavableObject
 	end
 
 	def talk_to(name)
-		if person = @current_scene.people[name]
+		if person = @current_scene.living_people[name]
 			person.talk
 		else
 			puts "#{name} isn't here."
