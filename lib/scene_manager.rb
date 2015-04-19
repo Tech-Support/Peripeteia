@@ -135,7 +135,7 @@ class SceneManager < SavableObject
 		add_scene(:village, {}, { name: "Village Center",
 			# add more here
 			# make this a haiku, idk maybe not
-			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is a\nblacksmith to the northeast, a small hut to the west,\nand a path leading into the forest to the east."
+			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is a\nblacksmith northeast, a small hut to the west,\nand a path leading into the forest to the east."
 		})
 
 		add_scene(:blacksmith, {
@@ -143,7 +143,8 @@ class SceneManager < SavableObject
 				@items[:wooden_sword]
 			])
 		}, { name: "Blacksmith",
-			description: "Wow, there are some excellent weapons and tools here."
+			# add more weapons
+			description: "The walls are made of a dark gray stone; it's not\nwell lit, but there's a fine selection of hand crafted\namour and tools. The exit is southwest."
 		}, Shop)
 
 		add_scene(:small_hut, {}, { name: "Small Hut",
