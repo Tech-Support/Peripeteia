@@ -1,6 +1,6 @@
 class Scene < GameEntity
 
-	attr_accessor :paths, :items, :key
+	attr_accessor :paths, :items, :key, :people
 
 	def marshal_dump
 		super.merge({ items: @items })
@@ -17,6 +17,7 @@ class Scene < GameEntity
 		@paths = {}
 		@visited = false
 		@key = data[:key]
+		@people = data[:people] || ObjectManager.new([])
 	end
 
 	def [](direction)
@@ -36,6 +37,7 @@ class Scene < GameEntity
 		print_name
 		puts @description
 		list_items
+		list_people
 	end
 
 	def print_name
@@ -51,12 +53,28 @@ class Scene < GameEntity
 		end
 	end
 
+	def list_people
+		living_people = @people.select { |person| person.alive? }
+		unless living_people.empty?
+			puts "People here".magenta
+			living_people.each do |person|
+				puts person.name
+			end
+		end
+	end
+
 end
 
 class Shop < Scene
 
 	def marshal_dump
 		super.merge({ inventory: @inventory })
+	end
+
+	def load_unsaved_data(data)
+		super
+		@owner = data[:owner]
+		@people << @owner
 	end
 
 	def setup(data)
@@ -74,6 +92,10 @@ class Shop < Scene
 		else
 			puts "That item isn't here."
 		end
+	end
+
+	def take(item)
+		# have the owner attack you if they are there, otherwise go ahead!
 	end
 
 	def look

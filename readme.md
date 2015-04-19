@@ -8,4 +8,7 @@ Todo:
 * Stop overriding inspect
 * change the message when teleporting to the shore after tying the rope
 * add a weapon and food class
-* add people
+	* only allow interaction with living people
+	* allow fights with people
+	* test if peoples items get left when they die
+	* allow stealing when no one alive owns a shop

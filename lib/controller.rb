@@ -57,6 +57,12 @@ class Controller < SavableObject
 		when /^i(nfo)?$/
 			@player.print_info
 			print_info
+		when /^talk( to)?( (?<name>[A-Za-z0-9 ]+))?$/
+			if persons_name = $~[:name]
+				talk_to(persons_name)
+			else
+				puts "Talk to who?"
+			end
 		when /^\?|help$/
 			print_help
 		when /^(buy|purchase)( (?<item_name>[A-Za-z0-9_]+))?$/
@@ -136,8 +142,18 @@ class Controller < SavableObject
 			item.inspect
 		elsif item = @player.inventory[thing]
 			item.inspect
+		elsif person = @current_scene.people[thing]
+			person.inspect
 		else
 			puts "That isn't here"
+		end
+	end
+
+	def talk_to(name)
+		if person = @current_scene.people[name]
+			person.talk
+		else
+			puts "#{name} isn't here."
 		end
 	end
 

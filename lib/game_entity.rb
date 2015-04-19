@@ -36,9 +36,9 @@ class GameEntity < SavableObject
 		@name = data[:name]
 		@description = data[:description]
 		if @alt_names = data[:alt_names]
-			@alt_names << @name
+			@alt_names << @name.downcase
 		else
-			@alt_names = [@name]
+			@alt_names = [@name.downcase]
 		end
 	end
 

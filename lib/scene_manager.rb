@@ -7,7 +7,7 @@ class SceneManager < SavableObject
 	end
 
 	def marshal_dump
-		super.merge({ scenes: @scenes, items: @items })
+		super.merge({ scenes: @scenes, items: @items, people: @people })
 	end
 
 	def marshal_load(data)
@@ -18,6 +18,7 @@ class SceneManager < SavableObject
 		super
 		@scenes = data[:scenes] || {}
 		@items = data[:items] || {}
+		@people = data[:people] || {}
 		setup_scenes
 	end
 
@@ -49,6 +50,13 @@ class SceneManager < SavableObject
 		add_item(:wooden_sword, {}, { name: "wooden sword", alt_names: ["sword"], article: "a",
 			description: "A cheap wooden sword, but it gets the job done!",
 			cost: 10
+		})
+
+		# PEOPLE:
+
+		add_person(:blacksmith, {}, { name: "Mike", alt_names: ["blacksmith"],
+			description: "Mike is very tall and somewhat intimidating,\nbut he looks like he really knows what he's doing",
+			health: 100
 		})
 
 		# SCENES:
@@ -144,7 +152,8 @@ class SceneManager < SavableObject
 			])
 		}, { name: "Blacksmith",
 			# add more weapons
-			description: "The walls are made of a dark gray stone; it's not\nwell lit, but there's a fine selection of hand crafted\namour and tools. The exit is southwest."
+			description: "The walls are made of a dark gray stone; it's not\nwell lit, but there's a fine selection of hand crafted\namour and tools. The exit is southwest.",
+			owner: @people[:blacksmith]
 		}, Shop)
 
 		add_scene(:small_hut, {}, { name: "Small Hut",
@@ -187,6 +196,11 @@ class SceneManager < SavableObject
 	def add_item(key, saved_data, unsaved_data, klass = Item)
 		@items[key] ||= klass.new({ delegate: @delegate }.merge(saved_data))
 		@items[key].load_unsaved_data({ key: key }.merge(unsaved_data))
+	end
+
+	def add_person(key, saved_data, unsaved_data, klass = Person)
+		@people[key] ||= klass.new({ delegate: @delegate }.merge(saved_data))
+		@people[key].load_unsaved_data({ key: key }.merge(unsaved_data))
 	end
 
 	def [](id)

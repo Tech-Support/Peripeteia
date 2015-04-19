@@ -4,7 +4,7 @@ class ObjectManager
 
 	include Enumerable
 
-	def initialize(objects)
+	def initialize(objects = [])
 		@objects = objects # an array
 	end
 
