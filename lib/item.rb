@@ -23,11 +23,13 @@ class Rope < Item
 
 	def load_unsaved_data(data)
 		super
-		@block = data[:block] || (-> (x) {})
+		@block = data[:block]
 	end
 
 	def tie
-		@block.call(self)
+		if @block
+			@block.call(self)
+		end
 	end
 
 end

@@ -10,7 +10,7 @@ class Person < GameEntity
 
 	def load_unsaved_data(data)
 		super
-		@on_death = data[:on_death] || (-> (x) {})
+		@on_death = data[:on_death]
 		@words = data[:words] || "#@name has nothing to say right now."
 	end
 
