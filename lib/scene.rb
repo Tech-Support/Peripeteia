@@ -98,8 +98,17 @@ class Shop < Scene
 		end
 	end
 
-	def take(item)
-		# have the owner attack you if they are there, otherwise go ahead!
+	def steal(item_name)
+		if @owner && @owner.alive?
+			puts "Not yet implemented"
+		else
+			if item = @inventory[item_name]
+				@delegate.player.give_item(item)
+				@inventory.delete(item)
+			else
+				puts "That item isn't here."
+			end
+		end
 	end
 
 	def look

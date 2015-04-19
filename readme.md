@@ -8,6 +8,8 @@ Todo:
 * Stop overriding inspect
 * change the message when teleporting to the shore after tying the rope
 * add a weapon and food class
-	* allow fights with people
+* add consistant regexes
+	* allow fights with people, including when you steal
 	* test if peoples items get left when they die
 	* allow stealing when no one alive owns a shop
+	* make "take" work for stealing

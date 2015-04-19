@@ -72,6 +72,12 @@ class Controller < SavableObject
 			else
 				puts "You can't buy things here."
 			end
+		when /^steal( (?<item_name>[A-Za-z0-9_]+))?$/
+			if item_name = $~[:item_name]
+				@current_scene.steal(item_name)
+			else
+				puts "Inspect what?"
+			end
 		when /^tie rope( to pegs?)?$/
 			if rope = @player.inventory["rope"]
 				rope.tie

@@ -58,10 +58,7 @@ class SceneManager < SavableObject
 			health: 100
 		}, { name: "Mike", alt_names: ["blacksmith"],
 			description: "Mike is very tall and somewhat intimidating,\nbut he looks like he really knows what he's doing",
-			words: "Welcome to my shop!",
-			on_death: -> (this) {
-				puts this.name
-			}
+			words: "Welcome to my shop!"
 		})
 
 		# SCENES:
