@@ -31,8 +31,18 @@ class Controller < SavableObject
 		# todo: allow look to also be used for items
 		when /^look$/
 			@current_scene.look
+		when /^look( at)?( (?<thing>[A-Za-z0-9 ]+))?$/
+			if thing = $~[:thing]
+				look_at(thing)
+			else
+				puts "Look at what?"
+			end
 		when /^inspect( (?<thing>[A-Za-z0-9 ]+))?$/
-			_inspect($~[:thing])
+			if thing = $~[:thing]
+				look_at(thing)
+			else
+				puts "Inspect what?"
+			end
 		when /^inv(entory)?$/
 			@player.look_in_inventory
 		when /^(?<word>get|take|grab)( (?<thing>[A-Za-z0-9 ]+))?$/
@@ -121,10 +131,8 @@ class Controller < SavableObject
 		end
 	end
 
-	def _inspect(thing)
-		if !thing
-			puts "Inspect what?"
-		elsif item = @current_scene.items[thing]
+	def look_at(thing)
+		if item = @current_scene.items[thing]
 			item.inspect
 		elsif item = @player.inventory[thing]
 			item.inspect
