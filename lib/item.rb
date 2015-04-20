@@ -33,3 +33,18 @@ class Rope < Item
 	end
 
 end
+
+class Weapon < Item
+
+	attr_reader :damage_range
+
+	def load_unsaved_data(data)
+		super
+		@damage_range = data[:damage]
+	end
+
+	def deal_damage(victim)
+		victim.take_damage(rand(@damage_range))
+	end
+
+end

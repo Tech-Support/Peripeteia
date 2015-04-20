@@ -51,8 +51,9 @@ class SceneManager < SavableObject
 
 		add_item(:wooden_sword, {}, { name: "wooden sword", alt_names: ["sword"], article: "a",
 			description: "A cheap wooden sword, but it gets the job done!",
-			cost: 10
-		})
+			cost: 10,
+			damage: 6..9
+		}, Weapon)
 
 		add_item(:bronze_helmet, {}, {name: "bronze helmet", alt_names: ["helmet"], article: "a",
 			description: "A sturdy bronze helmet. It looks pretty nice",

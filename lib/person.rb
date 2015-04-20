@@ -16,7 +16,7 @@ class Person < GameEntity
 
 	def setup(data)
 		super
-		@health = data[:health] || 30 # please always set this, don't just use the default
+		@health = data[:health]
 		@alive = data[:alive] == nil ? true : data[:alive]
 		@inventory = data[:inventory] || ObjectManager.new([])
 	end
@@ -29,7 +29,14 @@ class Person < GameEntity
 		puts @description
 	end
 
+	def take_damage(amount)
+		@health -= amount
+		puts "-#{amount} health dealt to #@name!".red
+		die if amount <= 0
+	end
+
 	def die
+		puts "#@name died!"
 		if @on_death
 			@on_death.call(self)
 		end

@@ -57,6 +57,22 @@ class Controller < SavableObject
 		when /^i(nfo)?$/
 			@player.print_info
 			print_info
+		when /^attack( (?<enemy_name>[A-Za-z0-9 ]+))?$/
+			if enemy_name = $~[:enemy_name]
+				if enemy = @current_scene.living_people[enemy_name]
+					@player.attack(enemy)
+				else
+					puts "#{enemy_name.capitalize} isn't here."
+				end
+			else
+				puts "Attack who?"
+			end
+		when /^equip( (?<weapon_name>[A-Za-z0-9_]+))?$/
+			if weapon_name = $~[:weapon_name]
+				@player.equip(weapon_name)
+			else
+				puts "You don't have that."
+			end
 		when /^talk( to)?( (?<name>[A-Za-z0-9 ]+))?$/
 			if persons_name = $~[:name]
 				talk_to(persons_name)
