@@ -32,7 +32,7 @@ class Person < GameEntity
 	def take_damage(amount)
 		@health -= amount
 		puts "-#{amount} health dealt to #@name!".red
-		die if amount <= 0
+		die if @health <= 0
 	end
 
 	def die
