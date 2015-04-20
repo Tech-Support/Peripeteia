@@ -145,7 +145,7 @@ class SceneManager < SavableObject
 		add_scene(:village, {}, { name: "Village Center",
 			# add more here
 			# make this a haiku, idk maybe not
-			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is a\nblacksmith northeast, a small hut to the west,\nand a path leading into the forest to the east."
+			description: "You are in the middle of a village, and there are\npeople singing and dancing all around. There is a\nblacksmith northeast, a small hut to the west,\nand paths leading into the forest\neast and northwest."
 		})
 
 		add_scene(:blacksmith, {
@@ -161,6 +161,14 @@ class SceneManager < SavableObject
 		add_scene(:small_hut, {}, { name: "Small Hut",
 			# add a person here that says to get out
 			description: "What a cozy home, it's nice in here. The exit is east."
+		})
+
+		add_scene(:almost_railroad, {}, { name: "Jungle by railroad",
+			description: "You are back in the jungle. There's a railroad\ncrossing northwest and a village southeast."
+		})
+
+		add_scene(:railroad, {}, { name: "Railroad crossing",
+			description: "You are at a railroad crossing going northeast\nand southwest. The jungle is back southeast."
 		})
 
 		# boat:
@@ -185,7 +193,9 @@ class SceneManager < SavableObject
 		@scenes[:jungle_path_west].paths = { se: @scenes[:jungle_path], nw: @scenes[:almost_village] }
 		@scenes[:almost_village].paths = { w: @scenes[:village], se: @scenes[:jungle_path_west] }
 				# village:
-		@scenes[:village].paths = { e: @scenes[:almost_village], ne: @scenes[:blacksmith], w: @scenes[:small_hut] }
+		@scenes[:village].paths = { e: @scenes[:almost_village], ne: @scenes[:blacksmith], w: @scenes[:small_hut], nw: @scenes[:almost_railroad] }
+		@scenes[:almost_railroad].paths = { se: @scenes[:village], nw: @scenes[:railroad] }
+		@scenes[:railroad].paths = { se: @scenes[:almost_railroad] }
 		@scenes[:small_hut].paths = { e: @scenes[:village] }
 		@scenes[:blacksmith].paths = { sw: @scenes[:village] }
 	end
