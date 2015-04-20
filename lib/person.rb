@@ -25,7 +25,7 @@ class Person < GameEntity
 		puts @words
 	end
 
-	def inspect
+	def look
 		puts @description
 	end
 

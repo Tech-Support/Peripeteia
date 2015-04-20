@@ -9,7 +9,7 @@ class Item < GameEntity
 		@cost = data[:cost] || nil # the cost can be used to buy or sell
 	end
 
-	def inspect
+	def look
 		puts @description
 	end
 

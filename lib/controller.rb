@@ -145,11 +145,11 @@ class Controller < SavableObject
 
 	def look_at(thing)
 		if item = @current_scene.items[thing]
-			item.inspect
+			item.look
 		elsif item = @player.inventory[thing]
-			item.inspect
+			item.look
 		elsif person = @current_scene.living_people[thing]
-			person.inspect
+			person.look
 		else
 			puts "That isn't here"
 		end

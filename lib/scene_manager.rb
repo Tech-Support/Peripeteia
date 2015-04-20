@@ -1,6 +1,6 @@
 class SceneManager < SavableObject
 
-	attr_reader :scenes, :items
+	attr_reader :scenes, :items, :people
 
 	def initialize(delegate)
 		super({ delegate: delegate })
