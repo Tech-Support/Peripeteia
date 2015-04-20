@@ -47,9 +47,16 @@ class SceneManager < SavableObject
 			description: "This key is pretty old, so the lock it belongs\nto is probably in the same condition."
 		})
 
+			# items at :blacksmith
+
 		add_item(:wooden_sword, {}, { name: "wooden sword", alt_names: ["sword"], article: "a",
 			description: "A cheap wooden sword, but it gets the job done!",
 			cost: 10
+		})
+
+		add_item(:bronze_helmet, {}, {name: "bronze helmet", alt_names: ["helmet"], article: "a",
+			description: "A sturdy bronze helmet. It looks pretty nice",
+			cost: 25
 		})
 
 		# PEOPLE:
@@ -150,7 +157,8 @@ class SceneManager < SavableObject
 
 		add_scene(:blacksmith, {
 			inventory: ObjectManager.new([
-				@items[:wooden_sword]
+				@items[:wooden_sword],
+				@items[:bronze_helmet]
 			])
 		}, { name: "Blacksmith",
 			# add more weapons

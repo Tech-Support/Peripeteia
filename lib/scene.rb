@@ -92,6 +92,8 @@ class Shop < Scene
 				@delegate.player.give_item(item)
 				@inventory.delete(item)
 				@delegate.player.money -= item.cost
+			else
+				puts "You can't afford that, get a job."
 			end
 		else
 			puts "That item isn't here."
