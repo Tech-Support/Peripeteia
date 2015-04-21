@@ -12,13 +12,15 @@ class Person < GameEntity
 		super
 		@on_death = data[:on_death]
 		@words = data[:words] || "#@name has nothing to say right now."
+		@max_health = data[:max_health]
+		@health ||= @max_health
+		@damage_range = data[:damage_range]
 	end
 
 	def setup(data)
 		super
-		@max_health = data[:max_health]
-		@health = data[:health] || @max_health
-		@alive = data[:alive] == nil ? true : data[:alive]
+		@health = data[:health]
+		@alive = data[:alive] == nil ? true : data[:alive] # don't set this yourself
 		@inventory = data[:inventory] || ObjectManager.new([])
 	end
 
@@ -47,6 +49,10 @@ class Person < GameEntity
 		end
 		@alive = false
 		@delegate.current_scene.items += @inventory
+	end
+
+	def attack(enemy)
+		enemy.take_damage(rand(@damage_range))
 	end
 
 end

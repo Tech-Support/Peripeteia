@@ -59,11 +59,7 @@ class Controller < SavableObject
 			print_info
 		when /^attack( (?<enemy_name>[A-Za-z0-9 ]+))?$/
 			if enemy_name = $~[:enemy_name]
-				if enemy = @current_scene.living_people[enemy_name]
-					@player.attack(enemy)
-				else
-					puts "#{enemy_name.capitalize} isn't here."
-				end
+				fight(enemy_name)
 			else
 				puts "Attack who?"
 			end
@@ -148,6 +144,15 @@ class Controller < SavableObject
 			@current_scene.enter
 		else
 			puts "Error: no room with the key \"#{key}\" "
+		end
+	end
+
+	def fight(enemy_name)
+		if enemy = @current_scene.living_people[enemy_name]
+			@player.attack(enemy)
+			enemy.attack(@player) if enemy.alive?
+		else
+			puts "#{enemy_name.capitalize} isn't here."
 		end
 	end
 

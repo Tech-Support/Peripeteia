@@ -108,7 +108,8 @@ class Shop < Scene
 
 	def steal(item_name)
 		if @owner && @owner.alive?
-			puts "Not yet implemented"
+			puts "No stealing in my shop!"
+			@owner.attack(@delegate.player)
 		else
 			if item = @inventory[item_name]
 				@delegate.player.give_item(item)

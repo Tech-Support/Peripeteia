@@ -40,7 +40,7 @@ class Weapon < Item
 
 	def load_unsaved_data(data)
 		super
-		@damage_range = data[:damage]
+		@damage_range = data[:damage_range]
 	end
 
 	def deal_damage(victim)

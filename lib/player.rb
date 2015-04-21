@@ -83,7 +83,7 @@ class Player < SavableObject
 	def die
 		puts "you dead. (change this message...)"
 
-		if (file = save_file) && File.file?(file)
+		if (file = @delegate.save_file) && File.file?(file)
 			File.delete(file)
 		end
 

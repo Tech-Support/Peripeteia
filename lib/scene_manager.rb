@@ -52,7 +52,7 @@ class SceneManager < SavableObject
 		add_item(:wooden_sword, {}, { name: "wooden sword", alt_names: ["sword"], article: "a",
 			description: "A cheap wooden sword, but it gets the job done!",
 			cost: 10,
-			damage: 6..9
+			damage_range: 6..9
 		}, Weapon)
 
 		add_item(:bronze_helmet, {}, {name: "bronze helmet", alt_names: ["helmet"], article: "a",
@@ -62,11 +62,11 @@ class SceneManager < SavableObject
 
 		# PEOPLE:
 
-		add_person(:blacksmith, {
-			max_health: 100
-		}, { name: "Mike", alt_names: ["blacksmith"],
+		add_person(:blacksmith, {}, { name: "Mike", alt_names: ["blacksmith"],
 			description: "Mike is very tall and somewhat intimidating,\nbut he looks like he really knows what he's doing",
-			words: "Welcome to my shop!"
+			words: "Welcome to my shop!",
+			max_health: 100,
+			damage_range: 9..11
 		})
 
 		# SCENES:
