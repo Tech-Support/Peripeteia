@@ -16,9 +16,14 @@ class Person < GameEntity
 
 	def setup(data)
 		super
-		@health = data[:health]
+		@max_health = data[:max_health]
+		@health = data[:health] || @max_health
 		@alive = data[:alive] == nil ? true : data[:alive]
 		@inventory = data[:inventory] || ObjectManager.new([])
+	end
+
+	def reset_health
+		@health = @max_health
 	end
 
 	def talk

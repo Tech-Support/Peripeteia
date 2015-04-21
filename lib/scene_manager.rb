@@ -63,7 +63,7 @@ class SceneManager < SavableObject
 		# PEOPLE:
 
 		add_person(:blacksmith, {
-			health: 100
+			max_health: 100
 		}, { name: "Mike", alt_names: ["blacksmith"],
 			description: "Mike is very tall and somewhat intimidating,\nbut he looks like he really knows what he's doing",
 			words: "Welcome to my shop!"

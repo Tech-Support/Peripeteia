@@ -142,6 +142,7 @@ class Controller < SavableObject
 
 	def teleport(key, message = nil)
 		if key != nil && scene = @scene_manager[key.to_sym]
+			@current_scene.leave
 			@current_scene = scene
 			puts message if message
 			@current_scene.enter
@@ -152,6 +153,7 @@ class Controller < SavableObject
 
 	def walk(direction)
 		if new_scene = @current_scene[direction]
+			@current_scene.leave
 			@current_scene = new_scene
 			new_scene.enter
 		else

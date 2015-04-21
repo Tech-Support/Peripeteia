@@ -33,6 +33,12 @@ class Scene < GameEntity
 		end
 	end
 
+	def leave
+		@people.each do |person|
+			person.reset_health
+		end
+	end
+
 	def look
 		print_name
 		puts @description
