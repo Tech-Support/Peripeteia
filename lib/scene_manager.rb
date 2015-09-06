@@ -135,7 +135,7 @@ class SceneManager < SavableObject
 			# eh?
 			# also, should there be a comma here?           ↓
 			# todo: add a path to the west
-			description: "The forest is getting denser and darker; it is getting\nharder to see things, but you notice a small path going west."
+								description: "The forest is getting denser and darker; it is getting\nharder to see things, but you notice a small path going west. The main path is back east."
 		})
 
 		add_scene(:jungle_path, {}, { name: "Jungle Path",
