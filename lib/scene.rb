@@ -1,15 +1,17 @@
 class Scene < GameEntity
 
-	attr_accessor :paths, :items, :key, :people
+	attr_accessor :paths, :items, :key, :people, :buildings, :return_to_scene
 
 	def marshal_dump
-		super.merge({ items: @items })
+		super.merge({ items: @items, return_to_scene: @return_to_scene })
 	end
 
 	def setup(data)
 		super
 		# @visited = data[:visited] || false
-		@items = data[:items] || ObjectManager.new([])
+		@items = data[:items] || ObjectManager.new()
+		# this should only be set after entering a building
+		@return_to_scene = data[:return_to_scene]
 	end
 
 	def load_unsaved_data(data)
@@ -17,11 +19,19 @@ class Scene < GameEntity
 		@paths = {}
 		@visited = false
 		@key = data[:key]
-		@people = data[:people] || ObjectManager.new([])
+		@people = data[:people] || ObjectManager.new()
+		@buildings = data[:buildings] || ObjectManager.new()
+		# `alt_names' is only needed if the scene is a building
+		@alt_names = data[:alt_names] || ObjectManager.new()
+		@is_building = data[:is_building] || false
 	end
 
 	def [](direction)
 		@paths[direction]
+	end
+
+	def is_building?
+		@is_building
 	end
 
 	def enter
@@ -89,7 +99,7 @@ class Shop < Scene
 
 	def setup(data)
 		super
-		@inventory = data[:inventory] || ObjectManager.new([])
+		@inventory = data[:inventory] || ObjectManager.new()
 	end
 
 	def buy(item_name)

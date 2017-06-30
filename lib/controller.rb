@@ -51,6 +51,14 @@ class Controller < SavableObject
 			else
 				puts "#{$~[:word].capitalize} what?"
 			end
+		when /^enter( (?<place>[A-Za-z0-9 ]+))?$/
+			if place = $~[:place]
+				enter_building(place)
+			else
+				puts "Where would you like to enter?"
+			end
+		when /^leave$/
+			leave_building
 		when /^quit|exit$/
 			save
 			exit
@@ -163,6 +171,28 @@ class Controller < SavableObject
 			new_scene.enter
 		else
 			puts "You can't go that way."
+		end
+	end
+
+	def enter_building(name)
+		building = @current_scene.buildings[name]
+		if building
+			building.return_to_scene = @current_scene.key
+			@current_scene.leave
+			@current_scene = building
+			@current_scene.enter
+		else
+			puts "There is no #{name} here."
+		end
+	end
+
+	def leave_building
+		if @current_scene.is_building?
+			@current_scene.leave
+			@current_scene = @scene_manager[@current_scene.return_to_scene]
+			@current_scene.enter
+		else
+			puts "You cannot leave. (change message...)"
 		end
 	end
 

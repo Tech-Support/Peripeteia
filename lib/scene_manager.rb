@@ -164,7 +164,9 @@ class SceneManager < SavableObject
 		}, { name: "Blacksmith",
 			# add more weapons
 			description: "The walls are made of a dark gray stone; it's not\nwell lit, but there's a fine selection of hand crafted\namour and tools. The exit is southwest.",
-			owner: @people[:blacksmith]
+			owner: @people[:blacksmith],
+			alt_names: ObjectManager.new(["blacksmith"]),
+			is_building: true
 		}, Shop)
 
 		add_scene(:small_hut, {}, { name: "Small Hut",
@@ -202,7 +204,10 @@ class SceneManager < SavableObject
 		@scenes[:jungle_path_west].paths = { se: @scenes[:jungle_path], nw: @scenes[:almost_village] }
 		@scenes[:almost_village].paths = { w: @scenes[:village], se: @scenes[:jungle_path_west] }
 				# village:
-		@scenes[:village].paths = { e: @scenes[:almost_village], ne: @scenes[:blacksmith], w: @scenes[:small_hut], nw: @scenes[:almost_railroad] }
+		# @scenes[:village].paths = { e: @scenes[:almost_village], ne: @scenes[:blacksmith], w: @scenes[:small_hut], nw: @scenes[:almost_railroad] }
+		@scenes[:village].paths = { e: @scenes[:almost_village], w: @scenes[:small_hut], nw: @scenes[:almost_railroad] }
+		@scenes[:village].buildings << @scenes[:blacksmith]
+
 		@scenes[:almost_railroad].paths = { se: @scenes[:village], nw: @scenes[:railroad] }
 		@scenes[:railroad].paths = { se: @scenes[:almost_railroad] }
 		@scenes[:small_hut].paths = { e: @scenes[:village] }
